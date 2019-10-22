@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta data-="UTF-8">
+    <title>마크업 연습 - 프로그래밍 교육</title>
+    <style>
+      body{
+        height: 10000px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>프로그래밍 교육</h1>
+    <!-- href에 #을 붙이면 해당하는 id값의 위치로 이동한다. -->
+    <a href="#python">
+      <img src="images/python.png" alt="python" width="50px" height="50px">
+    </a>
+    <a href="#web">
+        <img src="images/html.png" alt="html" width="50px" height="50px">  
+    </a>
+    <!-- href="01_index.html"과 동일 (같은 경로에 있을 경우) -->
+    <a href="./01_index.html">참고사이트</a>
+    <hr>
+
+    <!-- a 태그
+          - 현재창에서 이동(default) : target="_self"
+          - 새로운 창으로 이동 : target = "_blank"
+    -->
+    <a href="https://docs.python.org/" target="_blank"> 
+      <h2 id = "python">파이썬</h2>
+    </a> <!-- alt + 화살표 : 위아래로 움직이게-->
+
+    <h3>Number type</h3>
+    <p>파이썬에서 숫자형은 아래와 같이 있다.</p>
+
+    <ol>
+      <li>int</li>
+      <li>float</li>
+      <li>complex</li>
+      <li><del>str</del></li>
+    </ol>
+
+    <h3>Sequence</h3>
+    <p>파이썬에서 시퀀스는 아래와 같이 있다.</p>
+    <p><strong>시퀀스는 for 문을 돌릴 수 있다!!</strong></p>
+
+    <ol>
+        <li>str</li>
+        <li>list</li>
+        <li>tuple</li>
+        <li>range</li>
+    </ol>
+
+    <hr>
+    <a href="https://developer.mozilla.org/ko/docs/Web" >
+      <h2 id = "web">웹</h2>
+    </a>
+    <h3>기초</h3>
+
+    <ul>
+      <li style="list-style-type:circle">HTML</li>
+      <li>CSS</li>
+    </ul>
+
+    <iframe width="500px" height="500px" src="https://youtu.be/EfboY4G2l60"></iframe>
+  </body>
+</html>
