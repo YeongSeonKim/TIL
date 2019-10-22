@@ -1,0 +1,46 @@
+div{
+  width: 100px;
+  height: 100px;
+  background-color: cadetblue;
+}
+
+.margin{
+  margin-top: 30px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  margin-left: 20px; 
+}
+
+.padding{
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+}
+
+.border{
+  border-width: 8px;
+  border-style: dotted;
+  border-color: darkblue;
+  border-top-color: aqua; 
+  border-radius: 15px;
+}
+
+.margin-shorthand-1{
+  /* 상하좌우 적용 */
+  margin: 15px;
+}
+
+.margin-shorthand-2{
+  /* 상하, 좌우 적용 */
+  margin: 25px 15px;
+}
+
+.margin-shorthand-3{
+  /* 상, 좌우, 하 적용 */
+  margin: 15px 25px 5px;
+}
+
+.margin-shorthand-4{
+  /* 시계방향 : 상, 우, 하, 좌 */
+  margin: 5px 10px 15px 20px;
+}

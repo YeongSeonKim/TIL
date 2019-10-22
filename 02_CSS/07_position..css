@@ -1,0 +1,21 @@
+div{
+  width: 100px;
+  height: 100px;
+  background-color: lightsalmon;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.parent{
+  background-color: lightblue;
+}
+
+.absolute{
+  position: absolute;
+  top: 50px;
+  left: 30px;
+}
+
+.relative{
+  position: relative;
+}

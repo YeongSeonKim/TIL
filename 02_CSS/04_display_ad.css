@@ -1,0 +1,15 @@
+div{
+  width: 100px;
+  height: 100px;
+  background-color: forestgreen;
+  text-align: center;
+  opacity: 0.5; /* 투명도 조절 */
+}
+
+.none{
+  display: none;
+}
+
+.hidden{
+  visibility: hidden;
+}
