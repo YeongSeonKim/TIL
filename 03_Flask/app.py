@@ -1,5 +1,5 @@
 from flask import Flask, render_template ,request
-import random
+import random, requests
 app = Flask(__name__)
 
 @app.route('/')
@@ -84,6 +84,37 @@ def godmademe():
 
     # 4. 가공한 정보를 템플릿에 담아서 사용자에게 보여준다.
     return render_template('godmademe.html',name_html=name, first_html=first, second_html=second, third_html=third )
+
+
+# 아스키 아트 API 활용
+
+# 1. 사용자로부터 임의의 텍스트를 입력받아서, 아스키 아트로 변환해서 돌려준다.
+# 이때, 아스키 아트 폰트는 랜덤으로 하나를 지정해서 변환한다.
+
+@app.route('/catch')
+def catch():
+    return render_template('catch.html')
+
+@app.route('/result')
+def result():
+    # 1. 사용자가 입력한 Form 데이터를 가져온다.
+    word = request.args.get('word')
+
+    # 2. ARTII API로 요청을 보내서 , 응답 결과를 변수에 담는다. (폰트 정보를)
+    fonts = requests.get('http://artii.herokuapp.com/fonts_list').text
+
+    # 3. 가져온 폰트들을 리스트 형태로 바꾼다.
+    fonts = fonts.split('\n')
+
+    # 4. 폰트 하나를 랜덤으로 선택한다.
+    font = random.choice(fonts)
+
+    # 5. 사용자가 입력한 단어와 랜덤으로 선택한 폰트 정보를 담아서 API에게 요청한다.
+    result = requests.get(f'http://artii.herokuapp.com/make?text={word}&font={font}').text
+
+    # 6. 최종 결과물을 사용자에게 돌려준다.
+    return render_template('result.html', result=result)
+
 
 # end of file!!!
 # debug 모드를 활성화해서 서버 새로고침을 생략한다.
