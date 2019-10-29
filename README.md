@@ -1,6 +1,8 @@
 # TIL
 Today I Learned 
 
+[requirements](./05_django/01_django_intro_2/requirements.txt)
+
 INDEX
 
 1. HTML
