@@ -1,4 +1,9 @@
+<!-- base.html를 상속 받기 위한 코드 -->
+{% extends 'base.html' %} 
+
+{% block body %}
   <form action="/pages/catch" method="GET">
     <input type="text" name="message"><br>
     <input type="submit">
   </form>
+{% endblock body %}

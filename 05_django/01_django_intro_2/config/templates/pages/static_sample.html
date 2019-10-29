@@ -1,0 +1,17 @@
+<!-- base.html를 상속 받기 위한 코드 -->
+{% extends 'base.html' %} 
+<!-- 폴더 안에있는 스테틱 파일 찾아주는 코드 -->
+{% load static %}
+
+{% comment %} {% %} <!-- 내장함수 -->
+{{}}  <!-- 변수 --> {% endcomment %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'pages/stylesheets/sample.css' %}">
+{% endblock css %}
+
+{% block body %}
+  <h1>정적 파일 출력을 실습해 봅시당~</h1>
+  <img src="{% static 'pages/images/bg.jpg'%}" alt="">
+  <img src="/static/pages/images/bg.jpg" alt="">
+{% endblock body %}

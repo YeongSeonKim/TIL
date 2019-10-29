@@ -1,5 +1,10 @@
+<!-- base.html를 상속 받기 위한 코드 -->
+{% extends 'base.html' %} 
+
+{% block body %}
   <h4>글자를 입력해주세요!</h4>
   <form action="/pages/result" method="GET">
     <input type="text" name="word"><br>
     <input type="submit">
   </form>
+{% endblock body %}

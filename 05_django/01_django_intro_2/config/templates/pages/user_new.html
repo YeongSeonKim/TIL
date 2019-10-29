@@ -1,6 +1,11 @@
+<!-- base.html를 상속 받기 위한 코드 -->
+{% extends 'base.html' %}
+
+{% block body %}
   <form action="/pages/user_create/" method="POST">
     {% csrf_token %}
     아이디 : <input type="text" name="user_id"><br>
     비밀번호 : <input type="password" name="pwd"><br>
     <input type="submit" value="가입하기">
   </form>
+{% endblock body %}
