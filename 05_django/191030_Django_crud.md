@@ -196,7 +196,7 @@ $ python manage.py migrate
 
 - `sqlmigrate` : 실제 DB에 반영하기 전 SQL 쿼리문으로 바뀐 모습 확인
 
-  ```python
+  ```bash
   $ python manage.py sqlmigrate articles 0001
   ```
 
