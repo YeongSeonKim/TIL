@@ -408,7 +408,7 @@ admin.site.register(Article, ArticleAdmin)
 
 
 
-### 2.5 Django Extensions
+### 2.5 Django - Extensions
 
 > 기본 Django Shell은 직접 모델을 import 해주어야 하는 불편함이 있었지만 , `shell_plus`는 **필요한 모델을 자동으로 import 해주기 떄문에 편리**하다.
 
