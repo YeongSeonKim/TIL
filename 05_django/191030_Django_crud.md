@@ -457,10 +457,6 @@ urlpatterns = [
 
 
 
-
-
-
-
 ## 3. UPDATE
 
 ## 4. DELETE
