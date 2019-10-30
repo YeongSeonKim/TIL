@@ -1,0 +1,15 @@
+<!-- 상속 받는 코드 -->
+{% extends 'base.html' %}
+
+{% block body %}
+<h1 class="text-center">NEW</h1>
+<form action="/articles/create/" method="POST">
+<!-- POST 요청할 때 반드시 설정 -->
+{% csrf_token %} 
+  TITLE: <input type="text" name="title"><br>
+  CONTENT: <textarea name="content" cols="30" rows="10"></textarea><br>
+  <input type="submit">
+</form>
+<hr>
+<a href="/articles/">[BACK]</a>
+{% endblock %}
