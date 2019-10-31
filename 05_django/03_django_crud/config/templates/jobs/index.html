@@ -1,0 +1,12 @@
+<!-- 상속 받는 코드 -->
+{% extends 'base.html' %}
+
+{% block body %}
+<h1 class="text-center">당신은 전생에 무엇이었을까요?</h1>
+<form action="/jobs/past_job/" method="POST" class="text-center">
+<!-- POST 요청할 때 반드시 설정 -->
+{% csrf_token %} 
+<input type="text" name="user_name" placeholder="이름을 입력해주세요">
+<input type="submit" value="제출"> 
+</form>
+{% endblock body %}
