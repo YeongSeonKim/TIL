@@ -464,10 +464,85 @@ urlpatterns = [
 ## 3. UPDATE
 
 ```python
+# 03_django_crud
+# articles/views.py
 
+# 게시글 수정하는 함수 - 사용자한테 게시글 수정 폼을 전달
+def edit(request, article_pk):
+    article = Article.objects.get(pk=article_pk)
+    context = {'article':article}
+    return render(request, 'articles/edit.html', context)
+
+# 수정 내용 전달받아서 DB에 저장(반영)
+def update(request, article_pk):
+    # 1. 수정할 게시글 인스턴스 가져오기
+    article = Article.objects.get(pk=article_pk) 
+
+    # 2. 폼에서 전달받은 데이터 덮어쓰기
+    article.title = request.POST.get('title')
+    article.content = request.POST.get('content')
+    
+    # 3.DB에 저장
+    article.save()
+
+    # 4. 저장 끝났으면 게시글 Datail로 이동시키기
+    return redirect('articles:detail', article_pk)
+```
+```html
+<!-- edit.html -->
+
+<!-- 상속 받는 코드 -->
+{% extends 'base.html' %}
+
+{% block body %}
+<h1 class="text-center">EDIT</h1>
+{% comment %} <form action="/articles/{{ article.pk }}/update/" method="POST"> {% endcomment %}
+<form action="{% url 'articles:update' article.pk %}" method="POST">
+<!-- POST 요청할 때 반드시 설정 -->
+{% csrf_token %} 
+  <label for = "title">제목</label> 
+  <!--value를 지정해줘야지 수정가능함-->
+  <input type="text" name="title" value="{{ article.title }}"><br> 
+  <label for = "content">내용</label>
+  <textarea name="content" cols="30" rows="10" >
+  {{ article.content}}
+  </textarea><br>
+  <input type="submit">
+</form>
+<hr>
+<a href="{% url 'articles:detail' article.pk %}">[BACK]</a>
+{% endblock %}
 ```
 
+```html
+<!-- detail.html -->
 
+<!-- 상속 받는 코드 -->
+{% extends 'base.html' %}
+
+...
+<a href="{% url 'articles:edit' article.pk %}">[EDIT]</a>
+...
+
+{% endblock %}
+```
+
+```python
+# articles/urls.py
+
+from django.urls import path
+from . import views
+
+# app name을 지정해줄 수 있음 - 다른 애플리케이션에서 중복되지 않게 해줌
+app_name = 'articles'
+
+urlpatterns = [             # name = '' : 일반적으로 view이름이랑 같게 설정
+    ...
+    path('<int:article_pk>/edit/', views.edit, name='edit'), # UPDATE Logic - 폼 전달
+    path('<int:article_pk>/update/', views.update, name='update'), # UPDATE Logic - DB 저장
+    
+]
+```
 
 
 
@@ -509,4 +584,35 @@ urlpatterns = [
 ]
 ```
 
+```python
+# articles/urls.py
+
+from django.urls import path
+from . import views
+
+# app name을 지정해줄 수 있음 - 다른 애플리케이션에서 중복되지 않게 해줌
+app_name = 'articles'
+
+urlpatterns = [             # name = '' : 일반적으로 view이름이랑 같게 설정
+    ...
+    path('<int:article_pk>/', views.detail, name='detail'),  # READ Logic - Detail
+    path('<int:article_pk>/delete/', views.delete, name='delete'), # DELETE Logic - 삭제
+    ...
+    
+]
+```
+
+
+
+## + urls.py -> app_name,path(...,name='') 
+
+- `app_name`
+
+  모든 앱의 urls.py 에서 `app_name`을 지정해주면 다른 앱들과의 충돌을 막아 에러가 나는 일을 줄여줄 수 있다.
+
+- `path(...,name=' ')`
+
+  모든 앱의 urls.py에서 `name`은 보통 views.py 에서 생성한 `view`함수명을 사용한다. 
+
+- 모든 html, views.py에서 `URL Namespace`를 사용하는 것이 바람직하다!!
 
