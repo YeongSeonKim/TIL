@@ -9,5 +9,7 @@
 <p>생성 시각 : {{ article.created_at }}</p>
 <p>수정 시각 : {{ article.updated_at }}</p>
 <hr>
-<a href="/articles/">[BACK]</a>
+<a href="{% url 'articles:index' %}">[BACK]</a>
+<a href="{% url 'articles:edit' article.pk %}">[EDIT]</a>
+<a href="{% url 'articles:delete' article.pk %}">[DELETE]</a>
 {% endblock %}

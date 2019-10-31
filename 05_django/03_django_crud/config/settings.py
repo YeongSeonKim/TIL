@@ -31,7 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'students',
     'articles',
+    'django_extensions', # 앱등록해줘야함!!
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

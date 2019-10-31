@@ -1,0 +1,19 @@
+<!-- 상속 받는 코드 -->
+{% extends 'base.html' %}
+
+{% block body %}
+<h1 class="text-center">EDIT</h1>
+{% comment %} <form action="/articles/{{ article.pk }}/update/" method="POST"> {% endcomment %}
+<form action="{% url 'articles:update' article.pk %}" method="POST">
+<!-- POST 요청할 때 반드시 설정 -->
+{% csrf_token %} 
+  TITLE: <input type="text" name="title" value="{{ article.title }}"><br>
+  CONTENT: 
+  <textarea name="content" cols="30" rows="10" >
+  {{ article.content}}
+  </textarea><br>
+  <input type="submit">
+</form>
+<hr>
+<a href="{% url 'articles:detail' article.pk %}">[BACK]</a>
+{% endblock %}

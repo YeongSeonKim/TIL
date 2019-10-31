@@ -459,11 +459,216 @@ urlpatterns = [
 
 ## 3. UPDATE
 
+```python
+
+```
+
+
+
+
+
 ## 4. DELETE
 
 
+```python
+# 03_django_crud
+# articles/views.py
 
-
+# 삭제 페이지
+def delete(request, article_pk):
+    article = Article.objects.get(pk=article_pk)
+    article.delete()
+    return redirect('/articles/')
 ```
 
+```html
+<!-- detail.html -->
+
+<!-- 상속 받는 코드 -->
+{% extends 'base.html' %}
+...
+
+<a href="/articles/{{ article.pk }}/delete/">[DELETE]</a>
+{% endblock %}
 ```
+
+```python
+# 03_django_crud/articles/urls.py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    ...
+	path('<int:article_pk>/delete/', views.delete), # DELETE Logic - 삭제
+    ...
+]
+```
+
+
+
+
+
+## 실습
+
+> students 혹은 members와 같은 애플리케이션을 새로 만들어서 게시판과 비슷한 기능을 구현해보기
+
+
+
+ - 가이드
+     - students 앱을 만들어준다.
+
+   ```bash
+   $ python manage.py startapp students
+   ```
+
+   settings.py에 students 등록해주기
+
+   ```python
+   # settings.py 
+   
+   INSTALLED_APPS = [
+          'students',
+       ...
+      ]
+   ```
+   
+   - students 앱 안에 urls.py 파일 생성하고 config/urls.py에 **include** 시켜준다.
+
+   ```python
+   # 03_django_crud/config/urls.py
+   
+   from django.contrib import admin
+   from django.urls import path, include
+   
+   urlpatterns = [
+       ...
+       path('students/', include('students.urls')),
+   ]
+   ```
+   
+    - Student 모델 클래스를 만들어준다. -> 이름,나이(생년월일)
+   
+   students/models.py 코드 수정
+   
+   ```python
+   # students/models.py
+   
+   from django.db import models
+   
+   # django.db.models.Model 클래스를 상속받아서 모델을 정의함
+   class Student(models.Model):
+       name = models.TextField()
+       age = models.IntegerField()
+       email = models.EmailField()
+       # auto_now_add=True : 인스턴스 최초 생성 시각
+       created_at = models.DateTimeField(auto_now_add=True)
+       # auto_now=True : 인스턴스 최종 수정 시각 (업데이트됨)
+       updated_at = models.DateTimeField(auto_now=True)
+   
+        # 객체를 표시하는 형식 커스터마이징
+       def __str__(self):
+            return f'[{self.pk}번 학생]: {self.name}|{self.age}|{self.email}'
+   ```
+   
+   `makemigrations` : students migrations 파일생성, 수정하게 되면 makemigrations 해줘야한다.
+   
+   ```bash
+   $ python manage.py makemigrations
+      
+   # 실행결과
+   Migrations for 'students':
+     students\migrations\0001_initial.py
+       - Create model Student
+   (venv)
+   ```
+
+   `sqlmigrate` : 데이터베이스에 실제로 반영하기 전에 SQL문으로 바뀐 모습을 확인한다.
+
+   ```bash
+   $ python manage.py sqlmigrate students 0001
+   ```
+
+   ![image-20191031113743561](assets/image-20191031113743561.png)
+
+   `showmigrations` : migration 설계도를 작성했는데, 이설계도가 실제 DB에 반영되었는지 **확인**한다.
+
+   ```bash
+   $ python manage.py showmigrations
+   ```
+
+   ![image-20191031125159586](assets/image-20191031125159586.png)
+
+   `migrate` : makemigrations로 만든 설계도를 실제 데이터베이스(sqlite3)에 **반영**
+
+   ```bash
+   $ python manage.py migrate
+   ```
+
+   ![image-20191031130620868](assets/image-20191031130620868.png)
+
+   `shell` 실행
+
+   ```bash
+   # shell 실행
+   $ python manage.py shell_plus
+   ```
+
+   ![image-20191031125529108](assets/image-20191031125529108.png)
+
+   ```sqlite
+In [1]: from students.models import Student
+   
+   In [2]: Student.objects.all()
+Out[2]: <QuerySet []>
+   
+In [3]: Student.objects.create(name='김영선',age=24 )
+   Out[3]: <Student: [1번 학생]: 김영선|24|>
+
+   In [4]: Student.objects.create(name='ooo',age=20, e_mail="aaa@gmail.com" )
+Out[4]: <Student: [2번 학생]: ooo|20|aaa@gmail.com>
+   
+In [5]: Student.objects.create(name='bbb',age=27, email="bbbb@gmail.com" )
+   Out[5]: <Student: [3번 학생]: bbb|27|bbbb@gmail.com>
+
+   In [6]: Student.objects.all()
+Out[6]: <QuerySet [<Student: [1번 학생]: 김영선|24|>, <Student: [2번 학생]: ooo|20|aaa@gmail.com>, <Student: [3번 학생]: bbb|27|bbbb@gmail.com>]>
+   ```
+   
+   ![image-20191031135712691](assets/image-20191031135712691.png)
+   
+   
+   
+    - Django Shell 으로 Student 데이터를 만들고, 관리자 페이지에서 데이터가 잘 만들어졌는지 확인해보기
+   
+   
+   
+    - READ 로직 1 : Index 페이지 (학생들 목록)
+   
+   
+   
+    - CREATE 로직 : new create
+   
+   
+   
+    - READ 로직 2 : Detail 페이지(학생 상세정보)
+   
+   
+   
+    - DELETE 로직
+   
+   
+   
+    - UPDATE 로직
+   
+   
+
+
+
+
+
+
+
+
+
+>Faker API에 맞게 DB 모델링해서 데이터 저장시켜보기

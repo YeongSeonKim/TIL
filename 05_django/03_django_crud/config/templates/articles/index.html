@@ -3,11 +3,13 @@
 
 {% block body %}
   <h1 class="text-center">Articles</h1>
-  <a href="/articles/new">[NEW]</a>
+  <a href="{% url 'articles:new' %}">[NEW]</a>
   <hr>
   {% for article in articles %}
   <p> [{{article.pk }}] {{ article.title }}</p>
-    <a href="/articles/{{article.pk }}">[DETAIL]</a>
+    {% comment %} <a href="/articles/{{article.pk }}">[DETAIL]</a> {% endcomment %}
+    {% comment %} 장고에서 제공하는 url 템플릿 태그 사용 {% %} ,(콤마)없이 넘겨줄 값 입력  {% endcomment %}
+    <a href="{% url 'articles:detail' article.pk %}">[DETAIL]</a> 
   <hr>
   {% endfor %}
 {% endblock body %}
