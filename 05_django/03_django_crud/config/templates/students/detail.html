@@ -1,0 +1,16 @@
+<!-- 상속 받는 코드 -->
+{% extends 'base.html' %}
+
+{% block body %}
+<h1 class="text-center">DETAIL</h1>
+<p>글 번호 : {{ student.pk }}</p>
+<p>학생 이름 : {{ student.name }}</p>
+<p>나이 : {{ student.age }}</p>
+<p>이메일 : {{ student.email }}</p>
+<p>생성 시각 : {{ student.created_at }}</p>
+<p>수정 시각 : {{ student.updated_at }}</p>
+<hr>
+<a href="{% url 'students:index' %}">[BACK]</a>
+<a href="{% url 'students:edit' student.pk %}">[EDIT]</a>
+<a href="{% url 'students:delete' student.pk %}">[DELETE]</a>
+{% endblock %}

@@ -6,8 +6,10 @@
 <form action="{% url 'articles:create' %}" method="POST">
 <!-- POST 요청할 때 반드시 설정 -->
 {% csrf_token %} 
-  TITLE: <input type="text" name="title"><br>
-  CONTENT: <textarea name="content" cols="30" rows="10"></textarea><br>
+  <label for = "title">제목</label>
+  <input type="text" name="title"><br>
+  <label for = "content">내용</label>
+  <textarea name="content" cols="30" rows="10"></textarea><br>
   <input type="submit">
 </form>
 <hr>

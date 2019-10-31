@@ -1,0 +1,19 @@
+<!-- 상속 받는 코드 -->
+{% extends 'base.html' %}
+
+{% block body %}
+<h1 class="text-center">NEW</h1>
+<form action="{% url 'students:create' %}" method="POST">
+<!-- POST 요청할 때 반드시 설정 -->
+{% csrf_token %} 
+  <label for = "name">이름</label>
+  <input type="text" name="name"><br>
+  <label for = "age">나이</label>
+  <input type="text" name="age"><br>
+  <label for = "email">이메일</label>
+  <input type="email" name="email"><br>
+  <input type="submit">
+</form>
+<hr>
+<a href="{% url 'students:index' %}">[BACK]</a>
+{% endblock %}
