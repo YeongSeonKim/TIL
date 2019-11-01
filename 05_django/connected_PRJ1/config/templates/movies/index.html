@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1 class="text-center">영화 목록</h1>
+<hr>
+<input type="button" onclick="location.href='{% url 'movies:new' %}'" value="새 영화 등록" class="btn btn-primary mb-2">
+
+<div class="container">
+  <div class="row">
+  {% for movie in movies %}
+    <div class="col-12 col-md-6 col-lg-4" style="border: 1px solid black;">
+      <div class="card" style="width: 18rem;">
+        <img src="{{ movie.poster_url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h4 class="card-title">{{ movie.title }}</h4>
+          <p class="card-text">장르 : {{ movie.genre }}</p>
+          <a href="{% url 'movies:detail' movie.pk %}" class="btn btn-outline-primary">Dtail_View</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4" style="border: 1px solid black;">
+      One of three columns
+    </div>
+    <div class="col-12 col-md-6 col-lg-4" style="border: 1px solid black;">
+      One of three columns
+    </div>
+    {% endfor %}
+  </div>
+  
+</div>
+
+{% endblock body %}
