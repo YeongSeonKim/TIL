@@ -20,5 +20,5 @@ INDEX
 - [Django Database Sqlite3](./05_django/191030_Database.md)
 
 - [Bootstrap](./02_CSS/191104_Django_Bootstrap.md)
-- [Seed Data_RESTFul_1대N](./05_django/191104_Django_Seed Data_RESTFul_1대N.md)
+- [Seed Data/RESTFul/1대N](./05_django/191104_Django_Seed Data_RESTFul_1대N.md)
 
