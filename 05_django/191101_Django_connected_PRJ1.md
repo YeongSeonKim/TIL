@@ -164,3 +164,12 @@ $ pip install pylint-django
 ```
 
 ![image-20191101133506629](assets/image-20191101133506629.png)
+
+
+
+
+
+
+
+
+
