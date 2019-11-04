@@ -3,7 +3,7 @@
 
 {% block body %}
   <h1 class="text-center">Articles</h1>
-  <a href="{% url 'articles:new' %}">[NEW]</a>
+  <a href="{% url 'articles:create' %}">[NEW]</a>
   <hr>
   {% for article in articles %}
   <p> [{{article.pk }}] {{ article.title }}</p>

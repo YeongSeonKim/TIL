@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Movie
-import csv
-from datetime import datetime
+# import csv
+# from datetime import datetime
 
 # Create your views here.
 def index(request):
@@ -64,23 +64,23 @@ def delete(request, movie_pk):
     movie.delete()
     return redirect('movies:index')
 
-def csvfilesave(request):
-    with open('data.csv', newline='', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            title = row['\ufefftitle']
-            title_en = row['title_en']
-            audience= row['audience']
-            s = row['open_date']
-            date = datetime(year=int(s[0:4]), month=int(s[4:6]), day=int(s[6:8]))
-            open_date = date
-            genre=row['genre']
-            watch_grade=row['watch_grade']
-            score=row['score']
-            poster_url=row['poster_url']
-            description=row['description']
+# def csvfilesave(request):
+#     with open('data.csv', newline='', encoding='utf-8') as f:
+#         reader = csv.DictReader(f)
+#         for row in reader:
+#             title = row['\ufefftitle']
+#             title_en = row['title_en']
+#             audience= row['audience']
+#             s = row['open_date']
+#             date = datetime(year=int(s[0:4]), month=int(s[4:6]), day=int(s[6:8]))
+#             open_date = date
+#             genre=row['genre']
+#             watch_grade=row['watch_grade']
+#             score=row['score']
+#             poster_url=row['poster_url']
+#             description=row['description']
 
-            movie = Movie(title=title,title_en=title_en,audience=audience,open_date=open_date,genre=genre,watch_grade=watch_grade,score=score,poster_url=poster_url,description=description)
-            movie.save()
+#             movie = Movie(title=title,title_en=title_en,audience=audience,open_date=open_date,genre=genre,watch_grade=watch_grade,score=score,poster_url=poster_url,description=description)
+#             movie.save()
             
-    return render(request,'movies/save_result.html')
+#     return render(request,'movies/save_result.html')
