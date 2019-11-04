@@ -5,11 +5,20 @@ Today I Learned
 
 INDEX
 
-1. HTML
-2. [CSS](./02_CSS/191022_CSS.md)
-3. [Python]()
-4. [Flask](./04_Flask/191023_Flask.md)
-5. [Django 웹 개발_1](./05_django/191028_Django.md)
-6. [Django 웹 개발_2](./05_django/191029_Django.md)
-7. [Django Database Sqlite3](./05_django/191030_Database.md)
+- HTML
+
+- [CSS](./02_CSS/191022_CSS.md)
+
+- [Python]()
+
+- [Flask](./04_Flask/191023_Flask.md)
+
+- [Django 웹 개발_1](./05_django/191028_Django.md)
+
+- [Django 웹 개발_2](./05_django/191029_Django.md)
+
+- [Django Database Sqlite3](./05_django/191030_Database.md)
+
+- [Bootstrap](./02_CSS/191104_Django_Bootstrap.md)
+- [Seed Data(Initial Data),RESTFul,1대N](./05_django/191104_Django_Seed Data(Initial Data),RESTFul,1대N.md)
 
