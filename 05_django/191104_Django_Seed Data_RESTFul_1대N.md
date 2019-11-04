@@ -304,7 +304,7 @@ $ python manage.py migrate
 
 ![image-20191104161808619](assets/image-20191104161808619.png)
 
-DB 생성됨
+DB가 생성됨
 
 ![image-20191104161912185](assets/image-20191104161912185.png)
 
