@@ -444,6 +444,7 @@ Out[25]: <Article: [1번글]: second|django>
 
 ![image-20191104164038319](assets/image-20191104164038319.png)
 
-comment_set 이용하기
+`comment_set` 이용하기
 
 ![image-20191104164027424](assets/image-20191104164027424.png)
+
