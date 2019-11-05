@@ -360,6 +360,7 @@ urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 ```html
 <!-- detail.html -->
 
+{% load static %}
 ...
 <!--
   1. 샘플 이미지를 넣어두고, 이미지 없는 게시글은 샘플 이미지가 나오도록 한다.
@@ -383,7 +384,22 @@ urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 ``` html
 <!-- update.html -->
 
+...
+<!--
+  input type file일 경우 value값 지정을 못한다. 당장 해결 방법은?
+  이미지 파일은 바이너리 데이터(하나의 덩어리)로 들어가서, 텍스트를 수정하듯이 일부만
+  수정하는게 불가능하다. 새로운 사진을 덮어씌우는 방식을 사용한다.
+  
+  -> 똑같은 사진을 업로드 하도록 유도..! 사진 파일을 업데이트 페이지에 띄워놓는다.
+-->
+...
+<p>업로드 되어있는 사진</p>
+<img src="{{ article.image.url }}" alt="{{ article.image }}">
 
+...
+  <label for="image">IMAGE</label>
+  <input type="file" name="image" id="image" accept="image/*">
+...
 ```
 
 
