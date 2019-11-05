@@ -354,7 +354,37 @@ urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 ![image-20191105152805642](assets/image-20191105152805642.png)
 
-- 
+- 이미지를 게시글 수정할 때와 이미 올라온 게시글에 대해서 정의해주기
+- detail.html 코드 수정 - 이미 올라와있는 글에대해서 오류가 나서 이미지 파일이 없다고 정의해주기
+
+```html
+<!-- detail.html -->
+
+...
+<!--
+  1. 샘플 이미지를 넣어두고, 이미지 없는 게시글은 샘플 이미지가 나오도록 한다.
+  2. 이미지가 있는 경우에만 보여준다.
+-->
+
+{% if article.image %}
+  <img src="{{ article.image.url }}" alt="{{ article.image }}">
+{% else %}
+  <p>사진이 없어용,,,</p>
+  <img src="{% static 'articles/images/no_image.jpg'%}" alt="no_image">
+{% endif %}
+<br><br>
+...
+```
+
+![image-20191105160412162](assets/image-20191105160412162.png)
+
+- update.html 코드 수정 - 
+
+``` html
+<!-- update.html -->
+
+
+```
 
 
 

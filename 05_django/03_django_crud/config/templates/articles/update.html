@@ -3,10 +3,20 @@
 
 {% block body %}
 <br>
+<!--
+  input type file일 경우 value값 지정을 못한다. 당장 해결 방법은?
+  이미지 파일은 바이너리 데이터(하나의 덩어리)로 들어가서, 텍스트를 수정하듯이 일부만
+  수정하는게 불가능하다. 새로운 사진을 덮어씌우는 방식을 사용한다.
+  
+  -> 똑같은 사진을 업로드 하도록 유도..! 사진 파일을 업데이트 페이지에 띄워놓는다.
+-->
 <h1 class="text-center">EDIT</h1>
 <hr>
+<p>업로드 되어있는 사진</p>
+<img src="{{ article.image.url }}" alt="{{ article.image }}">
+
 {% comment %} <form action="/articles/{{ article.pk }}/update/" method="POST"> {% endcomment %}
-<form action="{% url 'articles:update' article.pk %}" method="POST">
+<form action="{% url 'articles:update' article.pk %}" method="POST" enctype="multipart/form-data">
 <!-- POST 요청할 때 반드시 설정 -->
 {% csrf_token %} 
   <label for = "title">제목</label> 
@@ -16,6 +26,8 @@
   <textarea name="content" cols="30" rows="10" >
   {{ article.content}}
   </textarea><br>
+  <label for="image">IMAGE</label>
+  <input type="file" name="image" id="image" accept="image/*">
   <input type="submit">
 </form>
 <hr>

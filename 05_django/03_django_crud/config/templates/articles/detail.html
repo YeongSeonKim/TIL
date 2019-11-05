@@ -1,5 +1,6 @@
 <!-- 상속 받는 코드 -->
 {% extends 'base.html' %}
+{% load static %}
 
 {% block body %}
 <br>
@@ -9,7 +10,18 @@
   article.image.url -> 파일주소
   article.image -> 파일이름(sample.png)
 -->
-<img src="{{ article.image.url }}" alt="{{ article.image }}">
+<!--
+  1. 샘플 이미지를 넣어두고, 이미지 없는 게시글은 샘플 이미지가 나오도록 한다.
+  2. 이미지가 있는 경우에만 보여준다.
+-->
+
+{% if article.image %}
+  <img src="{{ article.image.url }}" alt="{{ article.image }}">
+{% else %}
+  <p>사진이 없어용,,,</p>
+  <img src="{% static 'articles/images/no_image.jpg'%}" alt="no_image">
+{% endif %}
+<br><br>
 
 <p>글 번호 : {{ article.pk }}</p>
 <p>글 제목 : {{ article.title }}</p>
