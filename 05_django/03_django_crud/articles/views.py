@@ -19,7 +19,8 @@ def create(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         content = request.POST.get('content')
-        article = Article(title=title, content=content)
+        image = request.FILES.get('image')
+        article = Article(title=title, content=content, image=image)
         article.save()
         return redirect('articles:detail',article.pk) # URL Namespace
     # GET 요청일 경우 -> 사용자에게 폼 보여주기

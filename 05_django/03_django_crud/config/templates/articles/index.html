@@ -1,8 +1,23 @@
 <!-- 상속 받는 코드 -->
 {% extends 'base.html' %}
+{% load static %}
 
 {% block body %}
+<br>
+  <!-- Static file 저장해서 제일 좋아하는 사진 띄우기 -->
+  <div class="text-center">
+  
+  {% comment %} 
+      {% static %} : 
+  {% endcomment %}
+
+    <img src="{% static 'articles/images/bg.jpg' %}" alt="이미지"
+     style="max-width:500px;">
+  </div>
+  <br>
   <h1 class="text-center">Articles</h1>
+  <hr>
+
   <a href="{% url 'articles:create' %}">[NEW]</a>
   <hr>
   {% for article in articles %}

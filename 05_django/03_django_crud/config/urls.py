@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,3 +24,9 @@ urlpatterns = [
     path('students/', include('students.urls')),
     path('jobs/', include('jobs.urls')),
 ]
+
+# static()
+# 첫번째 인자 : 어떤 URL을 정적으로 추가할 지(Media file)
+# 두번째 인자 : 실제 해당 미디어 파일은 어디에 있는지?
+
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
