@@ -14,5 +14,7 @@ urlpatterns = [             # name = '' : 일반적으로 view이름이랑 같�
     # path('<int:article_pk>/edit/', views.edit, name='edit'), # UPDATE Logic - 폼 전달
     # GET(edit) / POST(update)
     path('<int:article_pk>/update/', views.update, name='update'), # UPDATE Logic - DB 저장
-    
+    path('<int:article_pk>/comments/', views.comments_create, name='comments_create'),
+    # 게시글들 중/O번 게시클/의 댓글들중/O번 댓글/삭제
+    path('<int:article_pk>/comments/<int:comment_pk>/delete/',views.comments_delete, name='comments_delete'),
 ]
