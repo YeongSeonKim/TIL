@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<br>
 <h1 class="text-center">영화 정보 조회</h1>
 <hr>
 <form>
@@ -62,6 +63,33 @@
 
 <hr>
 <a href="{% url 'movies:index' %}">[BACK]</a>
-<a href="{% url 'movies:edit' movie.pk %}">[EDIT]</a>
+<a href="{% url 'movies:update' movie.pk %}">[EDIT]</a>
 <a href="{% url 'movies:delete' movie.pk %}">[DELETE]</a>
+<hr>
+<!--  댓글 작성 Form -->
+<form action="{% url 'movies:comments_create' movie.pk %}" method="POST">
+  {% csrf_token %}
+  {% comment %} <input type="text" name="article"> {% endcomment %}
+  <input type="text" name="content" style="width:500px; height:100px;">
+  <input type="submit" value="댓글작성">
+</form>
+<hr>
+<br>
+<h5>[ 댓글 목록 ]</h5><br>
+<p>{{ comments|length }}개의 댓글이 있습니다.</p>
+{% comment %} {{ article.comment_set.all|length }}
+{{ comments.count }} {% endcomment %}
+
+{% for comment in comments %}
+<p>댓글 내용 : {{ comment.content }}</p>
+<p>작성 날짜 : {{ comment.created_at }} </p>
+<form action="{% url 'movies:comments_delete' movie.pk comment.pk %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="댓글삭제">
+</form>
+<hr>
+{% empty %}
+  <p>댓글이 없는데요오ㅜㅜㅜ</p>
+
+{% endfor %}
 {% endblock %}

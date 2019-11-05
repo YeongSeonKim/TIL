@@ -5,12 +5,15 @@ app_name = 'movies'
 
 urlpatterns = [
     path('', views.index ,name='index'),
-    path('new/', views.new, name='new'),
+    # path('new/', views.new, name='new'),
     path('create/', views.create, name='create'),
     path('<int:movie_pk>/', views.detail, name='detail'),
-    path('<int:movie_pk>/edit/', views.edit, name='edit'),
+    # path('<int:movie_pk>/edit/', views.edit, name='edit'),
     path('<int:movie_pk>/update/', views.update, name='update'),
     path('<int:movie_pk>/delete/', views.delete, name='delete'),
     # path('csvfilesave/',views.csvfilesave),
+    path('<int:movie_pk>/comments/', views.comments_create, name='comments_create'),
+    # 게시글들 중/O번 게시클/의 댓글들중/O번 댓글/삭제
+    path('<int:movie_pk>/comments/<int:comment_pk>/delete/',views.comments_delete, name='comments_delete'),
     
 ]
