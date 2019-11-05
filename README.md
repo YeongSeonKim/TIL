@@ -19,4 +19,4 @@ INDEX
 - [Bootstrap](./02_CSS/191104_Django_Bootstrap.md)
 - [Seed Data(Initial Data), RESTFul, 1:N ](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191104_Django_Seed%20Data_RESTFul_1%EB%8C%80N.md)
 
-- [댓글기능(등록,삭제)추가, Static files](./05_django/191105_Django_댓글기능추가,Static files.md)
+- [댓글기능(등록,삭제)추가, Static files](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191105_Django_%EB%8C%93%EA%B8%80%EA%B8%B0%EB%8A%A5%EC%B6%94%EA%B0%80%2CStatic%20files.md)
