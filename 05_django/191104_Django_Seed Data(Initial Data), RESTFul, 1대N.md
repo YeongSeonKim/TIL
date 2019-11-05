@@ -328,6 +328,10 @@ $ python manage.py shell_plus
 
 - **댓글 생성 및 조회**
 
+```python
+
+```
+
 - **1:N Relation 활용하기**
   - **Article(1) : Comment(N)** -> `comment_set`
     - `article.comment` 형태로는 가져올 수 없다. 게시글에 몇 개의 댓글이 있는지 Django ORM 측에서 보장할 수가 없다.
