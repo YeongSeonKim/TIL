@@ -14,7 +14,7 @@ INDEX
 - Django Database Sqlite3
   - [Django_orm](./05_django/191030_Django_orm.md)
   - [Django_crud](./05_django/191030_Django_crud.md)
-  - [students 애플리케이션 생성, 전생직업 app 만들기 실습](./05_django/191031_Django_실습.md)
+  - [students 애플리케이션, 전생직업 jods 애플리케이션 만들기 실습](./05_django/191031_Django_실습.md)
 - [종합실습프로젝트#1](./05_django/191101_Django_connected_PRJ1.md)
 - [Bootstrap](./02_CSS/191104_Django_Bootstrap.md)
 - [Seed Data(Initial Data), RESTFul, 1:N ](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191104_Django_Seed%20Data_RESTFul_1%EB%8C%80N.md)
