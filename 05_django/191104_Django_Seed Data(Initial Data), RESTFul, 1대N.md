@@ -276,7 +276,7 @@ PUT / articles/1 (O)
 
 
 
-#  3. 1 : N Relation
+#  3.  1 : N Relation
 
 - Foreign Key(외래키)
 
@@ -291,6 +291,29 @@ PUT / articles/1 (O)
 
 
 ## 3.1 Modeling (models.py)
+
+```python
+# articles/models.py
+
+from django.db import models
+
+class Comment(models.Model):
+    
+    # on_delete : 부모테이블이 사라졌을때 어떻게 할것인지
+    # related_name : 부모 테이블에서 역으로 참조할 때 기본적으로 모델이름_set 형식으로 불러온다. 
+    #                related_name 이라는 값을 설정해서  _set 명령어를 임의로 변경할 수 있다.
+    article = models.ForeignKey(Article, on_delete=models.CASCADE) 
+    content = models.CharField(max_length=250)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    # Model Level에서 Metadata 설정
+    class Meta:
+        ordering = ['-pk',]
+
+    def __str__(self):
+        return self.content
+```
 
 ```bash
 $ python manage.py makemigrations
@@ -329,10 +352,17 @@ $ python manage.py shell_plus
 - **댓글 생성 및 조회**
 
 ```python
+# articles/admin.py
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'content', 'created_at', 'updated_at',)
+    
+admin.site.register(Comment, CommentAdmin)
 ```
 
-- **1:N Relation 활용하기**
+
+
+- 1:N Relation 활용하기**
   - **Article(1) : Comment(N)** -> `comment_set`
     - `article.comment` 형태로는 가져올 수 없다. 게시글에 몇 개의 댓글이 있는지 Django ORM 측에서 보장할 수가 없다.
   - **Comment(N) : Article(1)** -> `article`
