@@ -134,10 +134,14 @@ $ python manage.py migrate
   $ mkdir 04_django_form
   $ cd 04_django_form
   ```
+  
+  ![image-20191106114410609](assets/image-20191106114410609.png)
 
   ```bash
   $ django-admin startproject config .
   ```
+
+![image-20191106122738528](assets/image-20191106122738528.png)
 
 - **앱 생성**
 
@@ -145,20 +149,77 @@ $ python manage.py migrate
   $ python manage.py startapp articles
   ```
 
+![image-20191106122638485](assets/image-20191106122638485.png)
+
+![image-20191106122757324](assets/image-20191106122757324.png)
+
 - **Article Model**
 
   ```python
   # models.py
+  
+  from django.db import models
+  
+  class Article(models.Model):
+      title = models.CharField(max_length=40)
+      content = models.TextField()
+      created_at = models.DateTimeField(auto_now_add=True)
+      updated_at = models.DateTimeField(auto_now=True)
+  
+      # 객체 표시 형식 
+      def __str__(self):
+           return f'[{self.pk}번글]: {self.title}|{self.content}'
+  
   ```
+
+모델 설정하고 makemigrations 
+
+![image-20191106125226766](assets/image-20191106125226766.png)
+
+showmigrations
+
+![image-20191106125319432](assets/image-20191106125319432.png)
+
+migrate
+
+![image-20191106125340751](assets/image-20191106125340751.png)
+
+- **admin 설정**
+
+  ```bash
+$ python manage.py createsuperuser
+  ```
+
+![image-20191106125526086](assets/image-20191106125526086.png)
 
 - **URL 설정**
 
   ```python
   # config/urls.py
+  
+  from django.contrib import admin
+  from django.urls import path, include
+  
+  urlpatterns = [
+      path('articles/', include('articles.urls')),
+      path('admin/', admin.site.urls),
+  ]
   ```
 
   ```python
   # articles/urls.py
+  
+  from django.urls import path
+  from . import views
+  
+  app_name = 'articles'
+  
+  urlpatterns = [
+      path("", views.index, name='index'),
+      path("create/", views.create, name='create'),
+      path("<int:article_pk>/", views.detail, name='detail'),
+  
+  ]
   ```
 
 - **base.html 생성** (부트스트랩 적용X)
@@ -167,6 +228,7 @@ $ python manage.py migrate
 
   ```python
   # views.py
+  
   def index(request):
       pass
   ```
@@ -179,11 +241,12 @@ $ python manage.py migrate
 
   ```python
   # views.py
+  
   def create(request):
       pass
   ```
 
-  ```
+  ```html
   <!-- create.html -->
   ```
 
@@ -191,10 +254,74 @@ $ python manage.py migrate
 
   ```python
   # views.py
+  
   def detail(request, article_pk):
       pass
-  ```
-
+```
+  
   ```html
   <!-- detail.html -->
   ```
+
+ 
+
+## Django Form
+
+> Django에서 제공하는 Form 클래스를 이용해서 편리하게 폼 정보를 관리하고 유효성 검증을 진행하고, 비유효 fileId에 대한 에러 메세지를 결정한다.
+>
+> 즉, HTML으로 Form 입력을 관리하던 것을 Django에서 제공하는 Form 클래스로 바꿔보는 작업을 해보자.
+
+- **Form 의 장점(->자동화)**
+  - `blank=True`와 같은 옵션을 따로 지정해주지 않았으면, HTML 태그에 required 옵션이 자동으로 붙는다.
+  - 기존에 max_length와 같은 조건을 어길 경우 에러 페이지를 출력했는데,  Django Form을 써서 
+
+```
+In [1]: form
+Out[1]: <ArticleForm bound=True, valid=Unknown, fields=(title;content)>
+
+In [2]: request.POST
+Out[2]: <QueryDict: {'csrfmiddlewaretoken': ['hDIVifOjEGF9GSPPWGp51l4LqEDk0FPkhTdLumU3AhCoGAbf95kqAbUbDXeGJERc'], 'title': ['제모고고고'], 'content': ['ㅇㄴㅇㄴㅇㄴㅇㄴ']}>
+
+In [3]: form.is_valid()
+Out[3]: True
+
+In [4]: form
+Out[4]: <ArticleForm bound=True, valid=True, fields=(title;content)>
+```
+
+- `get_object_or_404`
+  - 500
+
+- forms.py 파일을 04_django_form/articles 에 생성한다.
+
+```python
+# articles/forms.py
+
+from django import forms
+
+class ArticleForm(forms.Form):
+    title = forms.CharField(
+        max_length=30,
+        # HTML Tag와 동일
+        label='제목',
+        widget=forms.TextInput(
+            attrs={
+                'class':'title',
+                'placeholder':'제목을 입력해 주세요...!',
+            }
+        )
+    )
+    content = forms.CharField(
+        label='내용',
+        # widget : Input Type 지정 -> Textarea / 알맞은 속성값 부여
+        widget=forms.Textarea(
+            attrs={
+                'class':'content',
+                'placeholder':'내용을 입력해 주세요오오오옹',
+                'rows':5,
+                'cols':30,
+            }
+        )
+    )
+```
+

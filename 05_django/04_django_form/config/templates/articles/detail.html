@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <br>
+  <h1>DETAIL</h1>
+  <hr>
+
+<p>글 번호 : {{ article.pk }}</p>
+<p>글 제목 : {{ article.title }}</p>
+<p>글 내용 : {{ article.content }}</p>
+<p>생성 시각 : {{ article.created_at }}</p>
+<p>수정 시각 : {{ article.updated_at }}</p>
+<hr>
+<a href="{% url 'articles:index' %}">[BACK]</a>
+<a href="{% url 'articles:update' article.pk %}">[DELETE]<a>
+
+<hr>
+<br>
+{% endblock %}
