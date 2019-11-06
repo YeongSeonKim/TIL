@@ -8,7 +8,7 @@
   <a href="{% url 'articles:create' %}">[NEW]</a>
   <hr>
   {% for article in articles %}
-  <p> [{{article.pk }}]번호</p>
+  <p> [{{article.pk }}]번</p>
   <p> 제목 : {{ article.title }}</p>
     <a href="{% url 'articles:detail' article.pk %}">[DETAIL]</a> 
   <hr>

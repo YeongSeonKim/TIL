@@ -12,6 +12,10 @@
 <!-- POST 요청할 때 반드시 설정 -->
   {% csrf_token %} 
   {{ form.as_p }}
+  {% comment %} 
+  {{form.as_p}}: 각각의 input 태그를 p 태그로 감싼다.
+  {{form.as_table}}: 각각의 input 태그를 테이블 태그로 감싼다.
+  {% endcomment %}
 
   <input type="submit">
 </form>
