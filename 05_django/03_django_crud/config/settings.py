@@ -31,10 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jobs',
-    'students',
     'articles', # 앱등록해줘야함!!
+    'students',
+    'jobs',
     'django_extensions', # django-extensions 정의
+    'imagekit', # imagekit 정의
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
