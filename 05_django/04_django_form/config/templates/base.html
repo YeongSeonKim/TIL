@@ -1,3 +1,5 @@
+{% load bootstrap4 %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +7,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>04_django_form</title>
+  <!-- bootstrap4 css 추가 -->
+    {% bootstrap_css %}
 </head>
 <body>  
+  <br>
+  <div class="container">
+  {% if user.is_authenticated %}
+    <h2>어서오세요. {{ user.username }}</h2>
+    <a href="{% url 'accounts:logout' %}">로그아웃</a>
+  {% else %}
+  <h3>로그인을 하셔야 서비스 이용이 가능합니다.</h3>
+    <a href="{% url 'accounts:login' %}">로그인</a>
+    <a href="{% url 'accounts:signup' %}">회원가입</a>
+  {% endif %}
+  <hr>
     {% block body %}
     {% endblock body %}
+  </div>
+
+<!-- bootstrap4 javascript 추가 -->
+  {% bootstrap_javascript jquery='full' %}
+
 </body>
 </html>

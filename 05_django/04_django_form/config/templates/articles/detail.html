@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 
 {% block body %}
   <br>
-  <h1>DETAIL</h1>
+  <h1 class="text-center">DETAIL</h1>
   <hr>
 
 <p>글 번호 : {{ article.pk }}</p>
@@ -13,7 +14,35 @@
 <hr>
 <a href="{% url 'articles:index' %}">[BACK]</a>
 <a href="{% url 'articles:update' article.pk %}">[DELETE]<a>
-
 <hr>
 <br>
+<!-- 댓글 입력하는 Form -->
+<form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+{% csrf_token %}
+{% comment %} {{ comment_form }} {% endcomment %}
+{% bootstrap_form comment_form layout='inline' %}
+
+<div class="text-center">
+    {% buttons submit='댓글입력' reset="초기화" %}
+    {% endbuttons %}
+</div>
+</form>
+
+<hr>
+<p><b>댓글 목록({{ comments|length }}개)</b></p>
+{% for comment in comments %}
+{% comment %} <p>[{{ comment.pk }}]</p> {% endcomment %}
+<p>[{{ forloop.revcounter }}]번 댓글</p> <!-- revcounter : counter를 반대로 사용 -->
+<p>댓글 내용 : {{ comment.content }}</p>
+<p>작성 날짜 : {{ comment.created_at }} </p>
+<form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
+  {% csrf_token %}
+ <div>
+    {% buttons submit='댓글삭제' %}
+    {% endbuttons %}
+</div>
+</form>
+<hr>
+{% endfor %}
+
 {% endblock %}

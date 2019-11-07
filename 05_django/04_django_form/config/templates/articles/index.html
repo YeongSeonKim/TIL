@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 
 {% block body %}
   <br>
@@ -8,9 +9,21 @@
   <a href="{% url 'articles:create' %}">[NEW]</a>
   <hr>
   {% for article in articles %}
-  <p> [{{article.pk }}]번</p>
+  <p> [{{article.pk }}]번 글</p>
   <p> 제목 : {{ article.title }}</p>
+    <div>
+    {% comment %} {% bootstrap_button "DETAIL" button_type="button" button_class="btn-primary" %} {% endcomment %}
+    </div>
     <a href="{% url 'articles:detail' article.pk %}">[DETAIL]</a> 
-  <hr>
+ 
+  <form action="{% url 'articles:delete' article.pk %}" method="POST">
+  {% csrf_token %}
+     <div>
+    {% buttons submit='글삭제' %}
+    {% endbuttons %}
+    </div>
+   <hr> 
+  </form>
+
   {% endfor %}
 {% endblock body %}
