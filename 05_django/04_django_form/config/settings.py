@@ -122,3 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# login_required 요청 경로 커스터마이징
+# - 기본 값은'/accounts/login/'
+# LOGIN_URL = '/members/login/'

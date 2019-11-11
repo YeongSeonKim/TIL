@@ -13,9 +13,15 @@
 <body>  
   <br>
   <div class="container">
+  <!-- 로그인했을 경우 -->
   {% if user.is_authenticated %}
     <h2>어서오세요. {{ user.username }}</h2>
-    <a href="{% url 'accounts:logout' %}">로그아웃</a>
+    <a href="{% url 'accounts:logout' %}" class="btn btn-warning text-light">로그아웃</a>
+    <form action="{% url 'accounts:delete' %}" method="POST" style="display:inline;">
+    {% csrf_token %}
+    <input type="submit" value="회원탈퇴" class="btn btn-danger">
+    </form>
+  <!-- 비회원인 경우 -->
   {% else %}
   <h3>로그인을 하셔야 서비스 이용이 가능합니다.</h3>
     <a href="{% url 'accounts:login' %}">로그인</a>
