@@ -369,7 +369,8 @@ def login(request):
             # next 파라미터 내용이 있으면 next 경로로 보내고, 없으면 메인 페이지로 보낸다.
             return redirect(request.GET.get('next') or 'articles:index')
     else:
-        ...
+    
+    ...
 ```
 
 
@@ -415,4 +416,176 @@ test111 사용자 계정이 삭제 되었다.
 
 
 ## 6. 회원정보 수정
+
+```python
+# accounts/views.py
+
+# 회원정보 수정 
+@login_required
+def update(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('articles:index')
+    else:
+        # form = UserChangeForm(instance=request.user)
+        form = CustomUserChangeForm(instance=request.user)
+    context = {'form':form}
+    return render(request,'accounts/update.html', context)
+```
+```django
+<!-- accounts/update.html -->
+
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+<h1>회원정보수정</h1>
+<hr>
+<form action="" method="POST">
+  {% csrf_token %} 
+  {% bootstrap_form form %}
+  {% buttons submit='수정' reset='초기화' %}
+  {% endbuttons %}
+</form>
+{% endblock body %}
+```
+```python
+# accounts/forms.py
+
+```
+
+
+
+![image-20191111140329636](assets/image-20191111140329636.png)
+
+![image-20191111140342980](assets/image-20191111140342980.png)
+
+![image-20191111134049023](assets/image-20191111134049023.png)
+
+**django github**
+
+ https://github.com/django/django 
+
+
+
+## 7. 비밀번호 변경
+
+```python
+# accounts/views.py
+
+# 비밀번호 변경
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('articles:index')
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {'form':form}
+    return render(request,'accounts/change_password.html', context)
+```
+
+```django
+<!-- accounts/change_password.html -->
+
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+<h1>암호변경</h1>
+<hr>
+<form action="" method="POST">
+  {% csrf_token %} 
+  {% bootstrap_form form %}
+  {% buttons submit='변경하기' reset='초기화' %}
+  {% endbuttons %}
+</form>
+{% endblock body %}
+```
+
+
+
+![image-20191111140312502](assets/image-20191111140312502.png)
+
+![image-20191111141609860](assets/image-20191111141609860.png)
+
+- **update_session_auth_hash**
+  - `update_session_auth_hash(request, user)`
+  - 문제점
+    - 비밀번호 변경은 잘 되는데, 변경이 끝나면 로그인이 풀려버린다.
+    - 자동으로 로그아웃이 된 이유는 비밀번호가 변경되면서 기존 세션과 회원 인증 정보가 일치하지 않게 되었기 때문이다.
+
+```python
+# accounts/views.py
+
+from django.contrib.auth import update_session_auth_hash
+
+# 비밀번호 변경
+@login_required
+def change_password(request):
+    ...
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('articles:index')
+    else:
+        
+    ...
+```
+
+
+
+##  8. Auth Form 합치기
+
+signup.html 를 auth_form.html로 파일명 변경
+
+
+
+## 9. Gravatar - 프로필 이미지 만들기
+
+ https://ko.gravatar.com/ 
+
+- 이메일을 활용해서 프로필 사진을 만들어주는 서비스
+- 한번 등록하면, 이를 지원하는 사이트에서는 모두 해당 프로필 이미지를 사용할 수 있다.
+- 이메일 체크
+  - `http://ko.gravatar.com/site/check`
+  - 이메일 주소를 해시(MD5)로 바꾸고 URL으로 접속하면 이미지가 뜬다.(`?s=80`으로 사이즈 조절가능)
+
+![image-20191111144124211](assets/image-20191111144124211.png)
+
+![image-20191111145833248](assets/image-20191111145833248.png)
+
+- python으로 Hash 만들기
+  - md5 hash 생성
+    - `import hashlib`
+  - 혹시 모를 공백, 대문자 등을 방지하기 위한 파이썬 문법들
+    - `.strip()`, `lower()`
+
+![image-20191111144303973](assets/image-20191111144303973.png)
+
+![image-20191111145338341](assets/image-20191111145338341.png)
+
+```shell
+Python 3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 19:29:22) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> import hashlib
+>>> hashlib.md5("youngsun31138@gmail.com").hexdigest()
+Traceback (most recent call last):
+  File "<pyshell#1>", line 1, in <module>
+    hashlib.md5("youngsun31138@gmail.com").hexdigest()
+TypeError: Unicode-objects must be encoded before hashing
+>>> hashlib.md5("youngsun31138@gmail.com".encode("utf-8")).hexdigest()
+'3311e18d86f7f3d979451376ff1e30d5'
+>>> hashlib.md5("youngsun31138@gmail.com".encode("utf-8").lower().strip()).hexdigest()
+'3311e18d86f7f3d979451376ff1e30d5'
+>>> img_url = hashlib.md5("youngsun31138@gmail.com".encode("utf-8").lower().strip()).hexdigest()
+```
+
+
+
+### 9.1 Custom Template tag&filter
 

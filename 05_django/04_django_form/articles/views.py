@@ -1,7 +1,8 @@
+import hashlib
+from IPython import embed
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from IPython import embed
 from .models import Article
 from .models import Comment
 from .forms import ArticleForm
@@ -9,6 +10,11 @@ from .forms import CommentForm
 
 def index(request):
     # embed()
+    # if request.user.is_authenticated:
+    #     gravatar_url = hashlib.md5(request.user.email.encode('utf-8').lower().strip()).hexdigest()
+    # else:
+    #     gravatar_url = None
+
     articles = Article.objects.all()
     context = {'articles':articles,}
     return render(request,'articles/index.html', context)
