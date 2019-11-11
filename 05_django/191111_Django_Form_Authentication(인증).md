@@ -18,7 +18,7 @@
 
 
 
-- 로그인한 상태 - dir : 속성들 알수 있음
+- 로그인한 상태 - `dir` : 속성들 알수 있음
 
 ```sqlite
 In [1]: request
@@ -34,65 +34,7 @@ Out[2]:
  '__class__',
  '__delattr__',
  '__dict__',
- '__dir__',
- '__doc__',
- '__eq__',
- '__format__',
- '__ge__',
- '__getattribute__',
- '__gt__',
- '__hash__',
- '__init__',
- '__init_subclass__',
- '__iter__',
- '__le__',
- '__lt__',
- '__module__',
- '__ne__',
- '__new__',
- '__reduce__',
- '__reduce_ex__',
- '__repr__',
- '__setattr__',
- '__sizeof__',
- '__str__',
- '__subclasshook__',
- '__weakref__',
- '_current_scheme_host',
- '_encoding',
- '_get_full_path',
- '_get_post',
- '_get_raw_host',
- '_get_scheme',
- '_initialize_handlers',
- '_load_post_and_files',
- '_mark_post_parse_error',
- '_messages',
- '_read_started',
- '_set_post',
- '_stream',
- '_upload_handlers',
- 'body',
- 'build_absolute_uri',
- 'close',
- 'content_params',
- 'content_type',
- 'csrf_processing_done',
- 'encoding',
- 'environ',
- 'get_full_path',
- 'get_full_path_info',
- 'get_host',
- 'get_port',
- 'get_raw_uri',
- 'get_signed_cookie',
- 'headers',
- 'is_ajax',
- 'is_secure',
- 'method',
- 'parse_file_upload',
- 'path',
- 'path_info',
+ ...
  'read',
  'readline',
  'readlines',
@@ -118,63 +60,7 @@ Out[4]:
  '__delitem__',
  '__dict__',
  '__dir__',
- '__doc__',
- '__eq__',
- '__format__',
- '__ge__',
- '__getattribute__',
- '__getitem__',
- '__gt__',
- '__hash__',
- '__init__',
- '__init_subclass__',
- '__le__',
- '__lt__',
- '__module__',
- '__ne__',
- '__new__',
- '__reduce__',
- '__reduce_ex__',
- '__repr__',
- '__setattr__',
- '__setitem__',
- '__sizeof__',
- '__str__',
- '__subclasshook__',
- '__weakref__',
- '_get_new_session_key',
- '_get_or_create_session_key',
- '_get_session',
- '_get_session_from_db',
- '_get_session_key',
- '_hash',
- '_session',
- '_session_key',
- '_set_session_key',
- '_validate_session_key',
- 'accessed',
- 'clear',
- 'clear_expired',
- 'create',
- 'create_model_instance',
- 'cycle_key',
- 'decode',
- 'delete',
- 'delete_test_cookie',
- 'encode',
- 'exists',
- 'flush',
- 'get',
- 'get_expire_at_browser_close',
- 'get_expiry_age',
- 'get_expiry_date',
- 'get_model_class',
- 'has_key',
- 'is_empty',
- 'items',
- 'keys',
- 'load',
- 'model',
+ ...
  'modified',
  'pop',
  'save',
@@ -213,12 +99,15 @@ In [7]: exit()
 - `class User`는 이미 장고가 만들어 두었고, User 클래스와 연동되는 ModelForm인 ` UserCreationFrom`도 장고가 이미 준비해두었다.
 
 ```python
+# accounts/views.py
+
 def signup(request):
     if request.user.is_authenticated:
         return redirect('articles:index')
 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        # form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         # embed()
         if form.is_valid():
             user = form.save()
@@ -250,6 +139,8 @@ Out[1]: <UserCreationForm bound=True, valid=Unknown, fields=(username;password1;
   - `AuthenticationForm(request, request.POST)`
 
 ```python
+# accounts/views.py
+
 def login(request):
     if request.user.is_authenticated:
         return redirect('articles:index')
@@ -276,71 +167,7 @@ Out[2]:
  '__delattr__',
  '__dict__',
  '__dir__',
- '__doc__',
- '__eq__',
- '__format__',
- '__ge__',
- '__getattribute__',
- '__getitem__',
- '__gt__',
- '__hash__',
- '__html__',
- '__init__',
- '__init_subclass__',
- '__iter__',
- '__le__',
- '__lt__',
- '__module__',
- '__ne__',
- '__new__',
- '__reduce__',
- '__reduce_ex__',
- '__repr__',
- '__setattr__',
- '__sizeof__',
- '__str__',
- '__subclasshook__',
- '__weakref__',
- '_bound_fields_cache',
- '_clean_fields',
- '_clean_form',
- '_errors',
- '_html_output',
- '_post_clean',
- 'add_error',
- 'add_initial_prefix',
- 'add_prefix',
- 'as_p',
- 'as_table',
- 'as_ul',
- 'auto_id',
- 'base_fields',
- 'changed_data',
- 'clean',
- 'confirm_login_allowed',
- 'data',
- 'declared_fields',
- 'default_renderer',
- 'empty_permitted',
- 'error_class',
- 'error_messages',
- 'errors',
- 'field_order',
- 'fields',
- 'files',
- 'full_clean',
- 'get_initial_for_field',
- 'get_invalid_login_error',
- 'get_user',
- 'has_changed',
- 'has_error',
- 'hidden_fields',
- 'initial',
- 'is_bound',
- 'is_multipart',
- 'is_valid',
- 'label_suffix',
- 'media',
+ ...
  'non_field_errors',
  'order_fields',
  'prefix',
@@ -363,6 +190,8 @@ Out[2]:
     - 우리가 따로 설정해주지 않으면, view에 설정해둔 redirect 경로로 이동한다. next에 담긴 경로로 이동시키기 위해 코드를 바꾸어야 한다.
 
 ```python
+# accounts/views.py
+
 def login(request):
     ...
             # return redirect('articles:index')
@@ -389,6 +218,8 @@ def login(request):
   - 현재 유지하고 있는 session을 DELETE하는 로직
 
 ```python
+# accounts/views.py
+
 def logout(request):
     auth_logout(request)
     return redirect('articles:index')
@@ -418,7 +249,7 @@ test111 사용자 계정이 삭제 되었다.
 ## 6. 회원정보 수정
 
 ```python
-# accounts/views.py
+# articles/views.py
 
 # 회원정보 수정 
 @login_required
@@ -454,15 +285,35 @@ def update(request):
 ```python
 # accounts/forms.py
 
+from django import forms
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+
+class CustomUserChangeForm(UserChangeForm):
+
+    class Meta:
+        # User 클래스를 바로 사용하는 것이 아니라, 
+        # get_user_model()을 사용해서 User 클래스를 참조한다.
+        model = get_user_model()
+        # UserChangeForm -> User 클래스 -> AbstractUser 클래스
+        # Django 공식문서 : user-model
+        fields = ('email', 'last_name', 'first_name',)
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'password1', "password2", 'email',)
 ```
 
 
 
 ![image-20191111140329636](assets/image-20191111140329636.png)
 
-![image-20191111140342980](assets/image-20191111140342980.png)
+![image-20191111160922003](assets/image-20191111160922003.png)
 
 ![image-20191111134049023](assets/image-20191111134049023.png)
+
+
 
 **django github**
 
@@ -541,13 +392,72 @@ def change_password(request):
 
 ##  8. Auth Form 합치기
 
+base.html
+
+```django
+<!-- base.html -->
+
+{% load bootstrap4 %}
+
+...
+
+  <!-- 로그인했을 경우 -->
+  {% if user.is_authenticated %}
+    <h2>
+     {{ user.username }}
+    </h2>
+    <a href="{% url 'accounts:logout' %}" class="btn btn-warning text-light">로그아웃</a>
+    <a href="{% url 'accounts:update' %}" class="btn btn-success">정보수정</a>
+    <a href="{% url 'accounts:change_password' %}" class="btn btn-info">암호변경</a>
+    <form action="{% url 'accounts:delete' %}" method="POST" style="display:inline;">
+    {% csrf_token %}
+    <input type="submit" value="회원탈퇴" class="btn btn-danger">
+    </form>
+  <!-- 비회원인 경우 -->
+  {% else %}
+  <h3>로그인을 하셔야 서비스 이용이 가능합니다.</h3>
+    <a href="{% url 'accounts:login' %}">로그인</a>
+    <a href="{% url 'accounts:signup' %}">회원가입</a>
+  {% endif %}
+
+...
+```
+
 signup.html 를 auth_form.html로 파일명 변경
+
+```django
+<!-- auth_form.html -->
+
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+{% if request.resolver_match.url_name == 'signup'%}
+  <h1>암호변경</h1>
+{% elif request.resolver_match.url_name == 'login'%}
+  <h1>로그인</h1>
+{% elif request.resolver_match.url_name == 'update'%}
+  <h1>회원정보수정</h1>
+{% else %}
+  <h1>비밀번호변경</h1>
+{% endif %}
+<hr>
+<form action="" method="POST">
+  {% csrf_token %} 
+  {% bootstrap_form form %}
+  {% buttons submit='로그인' reset='초기화' %}
+  {% endbuttons %}
+</form>
+{% endblock body %}
+```
+
+- `accounts/views.py`에 있는 url 연결하는 부분을 `auth_form.html`로 변경해준다.
 
 
 
 ## 9. Gravatar - 프로필 이미지 만들기
 
- https://ko.gravatar.com/ 
+사이트 주소 -  https://ko.gravatar.com/ 
 
 - 이메일을 활용해서 프로필 사진을 만들어주는 서비스
 - 한번 등록하면, 이를 지원하는 사이트에서는 모두 해당 프로필 이미지를 사용할 수 있다.
@@ -567,25 +477,69 @@ signup.html 를 auth_form.html로 파일명 변경
 
 ![image-20191111144303973](assets/image-20191111144303973.png)
 
-![image-20191111145338341](assets/image-20191111145338341.png)
+![image-20191111162126062](assets/image-20191111162126062.png)
 
 ```shell
 Python 3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 19:29:22) [MSC v.1916 32 bit (Intel)] on win32
 Type "help", "copyright", "credits" or "license()" for more information.
 >>> import hashlib
->>> hashlib.md5("youngsun31138@gmail.com").hexdigest()
+>>> hashlib.md5("OOOOOOOO@gmail.com").hexdigest()
 Traceback (most recent call last):
   File "<pyshell#1>", line 1, in <module>
-    hashlib.md5("youngsun31138@gmail.com").hexdigest()
+    hashlib.md5("OOOOOOOO@gmail.com").hexdigest()
 TypeError: Unicode-objects must be encoded before hashing
->>> hashlib.md5("youngsun31138@gmail.com".encode("utf-8")).hexdigest()
-'3311e18d86f7f3d979451376ff1e30d5'
->>> hashlib.md5("youngsun31138@gmail.com".encode("utf-8").lower().strip()).hexdigest()
-'3311e18d86f7f3d979451376ff1e30d5'
->>> img_url = hashlib.md5("youngsun31138@gmail.com".encode("utf-8").lower().strip()).hexdigest()
+>>> hashlib.md5("OOOOOOOO@gmail.com".encode("utf-8")).hexdigest()
+'fasfasdfafdsfgd41654sdf4546ds848'
+>>> hashlib.md5("OOOOOOOO@gmail.com".encode("utf-8").lower().strip()).hexdigest()
+'fasfasdfafdsfgd41654sdf4546ds848'
+>>> img_url = hashlib.md5("OOOOOOOO@gmail.com".encode("utf-8").lower().strip()).hexdigest()
 ```
 
 
 
 ### 9.1 Custom Template tag&filter
 
+accounts 폴더에 templatetags 폴더 생성
+
+![image-20191111151415964](assets/image-20191111151415964.png)
+
+gravatar.py 파일 생성
+
+![image-20191111151501412](assets/image-20191111151501412.png)
+
+```python
+# templatetags/gravatar.py
+
+import hashlib
+from django import template
+
+# 기존 템플릿 라이브러리에 새로운 템플릿 추가
+register = template.Library()
+
+# 아래 함수를 필터로 등록
+@register.filter
+def makemd5(email):
+    return hashlib.md5(email.encode('utf-8').lower().strip()).hexdigest()
+```
+
+```django
+<!-- base.html -->
+
+...
+{% load gravatar %}
+...
+
+  <!-- 로그인했을 경우 -->
+  {% if user.is_authenticated %}
+    <h2>
+      <img class="rounded-circle" src="http://s.gravatar.com/avatar/{{ user.email|makemd5 }}?s=80&d=mp" alt="">
+      어서오세요. {{ user.username }}
+
+...
+```
+
+
+
+default 이미지 사용
+
+![image-20191111161417165](assets/image-20191111161417165.png)
