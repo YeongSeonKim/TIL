@@ -232,6 +232,16 @@ def logout(request):
 - CRUD 로직에서 User 테이블에서 User 레코드 하나를 삭제 시키는 DELETE로직과 흡사하다.
 - 로그인 된 상태에서만 회원 탈퇴 링크를 만들어서 접근 할 수 있도록 한다.
 
+```python
+# accounts/views.py
+
+# 회원탈퇴 - 로그인한 사람만 보임
+@require_POST
+def delete(request):
+    request.user.delete()
+    return redirect('articles:index')
+```
+
 회원가입 test111 계정을 생성했다.
 
 ![image-20191111113211491](assets/image-20191111113211491.png)
@@ -249,7 +259,7 @@ test111 사용자 계정이 삭제 되었다.
 ## 6. 회원정보 수정
 
 ```python
-# articles/views.py
+# accounts/views.py
 
 # 회원정보 수정 
 @login_required
@@ -265,6 +275,7 @@ def update(request):
     context = {'form':form}
     return render(request,'accounts/update.html', context)
 ```
+
 ```django
 <!-- accounts/update.html -->
 
@@ -304,8 +315,6 @@ class CustomUserCreationForm(UserCreationForm):
         model = get_user_model()
         fields = ('username', 'password1', "password2", 'email',)
 ```
-
-
 
 ![image-20191111140329636](assets/image-20191111140329636.png)
 
