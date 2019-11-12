@@ -132,8 +132,7 @@ $ python manage.py migrate
      In [6]: c2.user.pk
      Out[6]: 2
      ```
-  
-  
+     
   4. 2번 댓글을 작성한 User의 이름은?
   
      ```powershell
@@ -194,8 +193,8 @@ Out[7]: 'Lee'
   12. 제목이 '1글'이라는 게시글을 전부 가져오면?
   
       ```powershell
-    In [16]: Article.objects.filter(title='1글')
-    Out[16]: <QuerySet [<Article: 1글>]>
+      In [16]: Article.objects.filter(title='1글')
+      Out[16]: <QuerySet [<Article: 1글>]>
       ```
 
 
