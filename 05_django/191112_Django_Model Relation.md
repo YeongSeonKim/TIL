@@ -155,28 +155,26 @@ Out[7]: 'Lee'
      Out[9]: 'Kim'
      ```
   
-7. 1번 글의 2번째부터 4번째 까지 댓글 가져오기
+  7. 1번 글의 2번째부터 4번째 까지 댓글 가져오기
   
      ```powershell
      In [10]: article1.comment_set.all()[1:4]
-   Out[10]: <QuerySet [<Comment: 1글2댓글>, <Comment: 1글3댓글>, <Comment: 1글4댓글>]>
+      Out[10]: <QuerySet [<Comment: 1글2댓글>, <Comment: 1글3댓글>, <Comment: 1글4댓글>]>
      
      In [11]: print(article1.comment_set.all()[1:4].query)
-   SELECT "manytoone_comment"."id", "manytoone_comment"."content", "manytoone_comment"."article_id", "manytoone_comment"."user_id" FROM "manytoone_comment" WHERE "manytoone_comment"."article_id" = 1  LIMIT 3 OFFSET 1
-   ```
-  
+      SELECT "manytoone_comment"."id", "manytoone_comment"."content", "manytoone_comment"."article_id", "manytoone_comment"."user_id" FROM "manytoone_comment" WHERE "manytoone_comment"."article_id" = 1  LIMIT 3 OFFSET 1
+     ```
   8. 1번 글의 첫번째, 두번째 댓글 가져오기
-  
      ```powershell
      In [12]: article1.comment_set.all()[0:2]
      Out[12]: <QuerySet [<Comment: 1글1댓글>, <Comment: 1글2댓글>]>
      ```
-
+  
   9. 1번 글의 두번째 댓글을 작성한 사람의 첫번째 게시물의 작성자의 이름은?
   
      ```powershell
      In [13]: article1.comment_set.all()[1].user.article_set.all()[0].user.name
-      Out[13]: 'Lee'
+     Out[13]: 'Lee'
      ```
   
   10. 1번 댓글의 user 정보만 가져오면?
@@ -193,15 +191,12 @@ Out[7]: 'Lee'
       Out[15]: <QuerySet [<Comment: !2글2댓글>, <Comment: !1글5댓글>, <Comment: 1글4댓글>, <Comment: 1글2댓글>]>
       ```
 
-    ```
-      
-    ```
-12. 제목이 '1글'이라는 게시글을 전부 가져오면?
+  12. 제목이 '1글'이라는 게시글을 전부 가져오면?
   
-    ```shell
+      ```powershell
     In [16]: Article.objects.filter(title='1글')
-      Out[16]: <QuerySet [<Article: 1글>]>
-    ```
+    Out[16]: <QuerySet [<Article: 1글>]>
+      ```
 
 
 
@@ -316,7 +311,7 @@ class Patient(models.Model):
 
 - 중개모델을 만들지 않았지만 DB를 확인해보면 임의의 테이블을 자동으로 생성해준 것을 확인 할 수 있다.
 
-![image-20191112163615635](assets\image-20191112163615635.png)
+![1573556772509](C:\Users\student\AppData\Roaming\Typora\typora-user-images\1573556772509.png)
 
 - **실습**
 
@@ -349,11 +344,11 @@ Out[7]: <Reservation: 1의사의 2번 환자>
 
 삭제하기
 
-![image-20191112162411396](assets\image-20191112162411396.png)
+![1573556614747](C:\Users\student\AppData\Roaming\Typora\typora-user-images\1573556614747.png)
 
 마이그레이션에 있는  0001도 삭제
 
-![image-20191112162641969](assets\image-20191112162641969.png)
+![1573556591977](C:\Users\student\AppData\Roaming\Typora\typora-user-images\1573556591977.png)
 
 
 
