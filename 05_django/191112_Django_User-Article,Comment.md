@@ -291,3 +291,17 @@ detail.html 코드 수정 - 댓글 작성하는 사용자와 로그인한 사용
 
 #### - 댓글(User 정보 포함) 기능
 
+
+
+
+
+# Model Relationship
+
+## 1.Many to one
+
+
+
+## 2. Many to Many
+
+
+
