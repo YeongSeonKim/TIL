@@ -35,7 +35,9 @@ def create(request):
             # title = form.cleaned_data.get('title')
             # content = form.cleaned_data.get('content')
             # article = Article.objects.create(title=title, content=content)
-            article = form.save()
+            article = form.save(commit=False)
+            article.user = request.user
+            article.save()
 
         return redirect('articles:detail', article.pk)
     else:

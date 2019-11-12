@@ -1,10 +1,12 @@
 from django.db import models
+from django.conf import settings
 
 class Article(models.Model):
     title = models.CharField(max_length=40)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     # 객체 표시 형식 
     def __str__(self):
