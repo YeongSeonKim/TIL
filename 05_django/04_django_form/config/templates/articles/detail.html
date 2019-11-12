@@ -13,20 +13,32 @@
 <p>수정 시각 : {{ article.updated_at }}</p>
 <hr>
 <a href="{% url 'articles:index' %}">[BACK]</a>
-<a href="{% url 'articles:update' article.pk %}">[DELETE]<a>
-<hr>
-<br>
-<!-- 댓글 입력하는 Form -->
-<form action="{% url 'articles:comments_create' article.pk %}" method="POST">
-{% csrf_token %}
-{% comment %} {{ comment_form }} {% endcomment %}
-{% bootstrap_form comment_form layout='inline' %}
-
-<div class="text-center">
-    {% buttons submit='댓글입력' reset="초기화" %}
+<a href="{% url 'articles:update' article.pk %}">[EDIT]<a>
+<form action="{% url 'articles:delete' article.pk %}" method="POST">
+  {% csrf_token %}
+<div>
+    {% buttons submit='삭제' %}
     {% endbuttons %}
 </div>
 </form>
+</form>
+<hr>
+<br>
+{% if user.is_authenticated %}
+<!-- 댓글 입력하는 Form -->
+  <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+  {% csrf_token %}
+  {% comment %} {{ comment_form }} {% endcomment %}
+  {% bootstrap_form comment_form layout='inline' %}
+
+  <div class="text-center">
+      {% buttons submit='댓글입력' reset="초기화" %}
+      {% endbuttons %}
+  </div>
+  </form>
+{% else %}
+  <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인 해주세요!]</a>
+{% endif %}
 
 <hr>
 <p><b>댓글 목록({{ comments|length }}개)</b></p>
@@ -35,13 +47,15 @@
 <p>[{{ forloop.revcounter }}]번 댓글</p> <!-- revcounter : counter를 반대로 사용 -->
 <p>댓글 내용 : {{ comment.content }}</p>
 <p>작성 날짜 : {{ comment.created_at }} </p>
-<form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
-  {% csrf_token %}
- <div>
-    {% buttons submit='댓글삭제' %}
-    {% endbuttons %}
-</div>
-</form>
+{% if comment.user == request.user %}
+  <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
+    {% csrf_token %}
+  <div>
+      {% buttons submit='댓글삭제' %}
+      {% endbuttons %}
+  </div>
+  </form>
+{% endif %}
 <hr>
 {% endfor %}
 

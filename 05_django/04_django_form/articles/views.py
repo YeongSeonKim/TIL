@@ -66,9 +66,15 @@ def detail(request, article_pk):
 # @login_required
 @require_POST
 def delete(request, article_pk):
+    # 지금 사용자가 로그인 되어 있는지?
     if request.user.is_authenticated:
+        # 삭제할 게시글 가져오기
         article = get_object_or_404(Article,pk=article_pk)
-        article.delete()
+        # 지금 로그인한 사용자와 게시글 작성자 비교
+        if request.user == article.user:
+            article.delete()    
+        else:
+            return redirect('articles:detail', article.pk)
     return redirect('articles:index')
     
     # if request.method == 'POST':    
@@ -80,23 +86,25 @@ def delete(request, article_pk):
 @login_required
 def update(request, article_pk):
     article = get_object_or_404(Article,pk=article_pk)
-    
-    if request.method == "POST":
-        form = ArticleForm(request.POST, instance=article)
-        if form.is_valid():
-            # article.title = form.cleaned_data.get('title')
-            # article.content = form.cleaned_data.get('content')
-            # article.save()
-            article = form.save()
+    # 지금 로그인한 사용자와 게시글 작성자 비교
+    if request.user == article.user:
+        if request.method == "POST":
+            form = ArticleForm(request.POST, instance=article)
+            if form.is_valid():
+                # article.title = form.cleaned_data.get('title')
+                # article.content = form.cleaned_data.get('content')
+                # article.save()
+                article = form.save()
 
-            return redirect('articles:detail', article.pk)
+                return redirect('articles:detail', article.pk)
+        else:
+            # form = ArticleForm(initial={
+            #     'title':article.title,
+            #     'content':article.content,
+            # })
+            form = ArticleForm(instance=article)
     else:
-        # form = ArticleForm(initial={
-        #     'title':article.title,
-        #     'content':article.content,
-        # })
-        form = ArticleForm(instance=article)
-
+        return redirect('articles:index')
     # context로 전달되는 2가지 form 형식
     # 1. GET -> 초기값을 폼에 넣어서 사용자에게 던져줌
     # 2. POST -> is_valid가 False가 리턴됬을 때, 오류 메세지를 포함해서 동작한다.
@@ -108,16 +116,17 @@ def update(request, article_pk):
 
 @require_POST
 def comments_create(request, article_pk):
-    article = get_object_or_404(Article,pk=article_pk)
+    # article = get_object_or_404(Article,pk=article_pk)
     if request.user.is_authenticated:
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             # save 메서드 -> 선택 인자 : (기본값) commit=True -> DB에 저장
             # DB에 바로 저장되는 것을 막아준다. -> commit=False
             comment = comment_form.save(commit=False) 
-            comment.article = article
+            comment.user = request.user
+            comment.article_id = article_pk # 장고가 만들어준 테이블 형식으로 불러오기
             comment.save()
-        return redirect('articles:detail', article.pk)
+        return redirect('articles:detail', article_pk)
 
     # if request.method == 'POST':
     #     comment_form = CommentForm(request.POST)
@@ -133,9 +142,12 @@ def comments_create(request, article_pk):
 
 @require_POST
 def comments_delete(request, article_pk, comment_pk):
+    # 1. 로그인 여부 확인
     if request.user.is_authenticated:
         comment = Comment.objects.get(pk=comment_pk)
-        comment.delete()
+        # 2. 로그인한 사용자와 댓글 작성자가 같을 경우
+        if request.user == comment.user:
+            comment.delete()
     return redirect('articles:detail', article_pk)
 
     # if request.method == 'POST':
