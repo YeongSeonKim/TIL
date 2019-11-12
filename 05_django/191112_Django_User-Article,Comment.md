@@ -157,12 +157,9 @@ class Comment(models.Model):
     ...
 ```
 
-- 데이터 베이스에 반영
-  - vvv
+데이터 베이스에 반영
 
-
-
-makemigrations
+**makemigrations**
 
 ```bash
 $ python manage.py makemigrations
@@ -181,7 +178,7 @@ Migrations for 'articles':
 (venv)
 ```
 
-migrate
+**migrate**
 
 ```bash
 $ python manage.py migrate
