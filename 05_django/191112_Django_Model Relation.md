@@ -163,7 +163,7 @@ Out[7]: 'Lee'
      
      In [11]: print(article1.comment_set.all()[1:4].query)
    SELECT "manytoone_comment"."id", "manytoone_comment"."content", "manytoone_comment"."article_id", "manytoone_comment"."user_id" FROM "manytoone_comment" WHERE "manytoone_comment"."article_id" = 1  LIMIT 3 OFFSET 1
-     ```
+   ```
   
   8. 1번 글의 첫번째, 두번째 댓글 가져오기
   
@@ -176,7 +176,7 @@ Out[7]: 'Lee'
   
      ```powershell
      In [13]: article1.comment_set.all()[1].user.article_set.all()[0].user.name
-   Out[13]: 'Lee'
+      Out[13]: 'Lee'
      ```
   
   10. 1번 댓글의 user 정보만 가져오면?
@@ -192,8 +192,9 @@ Out[7]: 'Lee'
       In [15]: user2.comment_set.order_by('-pk')
       Out[15]: <QuerySet [<Comment: !2글2댓글>, <Comment: !1글5댓글>, <Comment: 1글4댓글>, <Comment: 1글2댓글>]>
       ```
+
     ```
-  
+      
     ```
 12. 제목이 '1글'이라는 게시글을 전부 가져오면?
   
@@ -315,7 +316,7 @@ class Patient(models.Model):
 
 - 중개모델을 만들지 않았지만 DB를 확인해보면 임의의 테이블을 자동으로 생성해준 것을 확인 할 수 있다.
 
-![image-20191112165817926](assets\image-20191112165817926-1573547494955.png)
+![image-20191112165817926](assets\image-20191112163615635.png)
 
 - **실습**
 
@@ -348,11 +349,11 @@ Out[7]: <Reservation: 1의사의 2번 환자>
 
 삭제하기
 
-![image-20191112162411396](assets\image-20191112162411396-1573547494956.png)
+![image-20191112162411396](assets\image-20191112162411396.png)
 
 마이그레이션에 있는  0001도 삭제
 
-![image-20191112162641969](assets\image-20191112162641969-1573547494956.png)
+![image-20191112162641969](assets\image-20191112162641969.png)
 
 
 
@@ -401,4 +402,4 @@ In [14]: doctor1.patients.all()
 Out[14]: <QuerySet [<Patient: 2번 환자 민승>]>
 ```
 
-![image-20191112163458597](assets\image-20191112163458597-1573547494956.png)
+![image-20191112163458597](assets\image-20191112163458597.png)
