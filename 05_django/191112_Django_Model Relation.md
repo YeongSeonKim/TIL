@@ -310,7 +310,7 @@ class Patient(models.Model):
 
 - 중개모델을 만들지 않았지만 DB를 확인해보면 임의의 테이블을 자동으로 생성해준 것을 확인 할 수 있다.
 
-![1573556772509](C:\Users\student\AppData\Roaming\Typora\typora-user-images\1573556772509.png)
+![1573557185655](assets/1573557185655.png)
 
 - **실습**
 
@@ -343,11 +343,11 @@ Out[7]: <Reservation: 1의사의 2번 환자>
 
 삭제하기
 
-![1573556614747](C:\Users\student\AppData\Roaming\Typora\typora-user-images\1573556614747.png)
+![1573557170057](assets/1573557170057.png)
 
 마이그레이션에 있는  0001도 삭제
 
-![1573556591977](C:\Users\student\AppData\Roaming\Typora\typora-user-images\1573556591977.png)
+![1573557399338](assets/1573557399338.png)
 
 
 
@@ -396,4 +396,5 @@ In [14]: doctor1.patients.all()
 Out[14]: <QuerySet [<Patient: 2번 환자 민승>]>
 ```
 
-![image-20191112163458597](assets\image-20191112163458597.png)
+![1573557967697](assets/1573557967697.png)
+
