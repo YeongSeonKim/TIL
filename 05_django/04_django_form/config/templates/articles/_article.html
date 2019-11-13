@@ -1,0 +1,31 @@
+{% comment %} <p> 작성자 : {{ article.user }} </p>
+<p> [{{article.pk }}]번 글</p>
+<p> 제목 : {{ article.title }}</p>
+<i class="fas fa-heart"></i>
+<a href="{% url 'articles:detail' article.pk %}">[DETAIL]</a> {% endcomment %}
+
+<div class="col-12 col-md-6 mb-2">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">
+          작성자: {{ article.user }} <br>
+          제목 : {{ article.title }}
+        </h5>
+        <p class="card-text">
+        <a href="{% url 'articles:like' article.pk %}">
+            <!-- 사용자가 좋아요 안누른 상태면 -> 빈하트 -->
+            {% if request.user in article.like_users.all %}
+              <i class="fas fa-heart"></i>
+            <!-- 사용자가 좋아요 누른 상태면 -> 꽉찬하트 -->
+            {% else %}
+              <i class="far fa-heart"></i>
+            {% endif %}
+          </a><br>
+          {{ article.like_users.all|length }}명이 이글을 좋아합니다.<br>
+          생성시각 : {{ article.created_at }}
+        </p>
+        <a href="{% url 'articles:detail' article.pk %}" 
+        class="btn btn-primary">상세보기</a>
+      </div>
+    </div>
+  </div>

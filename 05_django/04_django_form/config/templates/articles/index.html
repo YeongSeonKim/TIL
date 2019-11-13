@@ -8,23 +8,19 @@
 
   <a href="{% url 'articles:create' %}">[NEW]</a>
   <hr>
+  <div class="row">
   {% for article in articles %}
-  <p> 작성자 : {{ article.user }} </p>
-  <p> [{{article.pk }}]번 글</p>
-  <p> 제목 : {{ article.title }}</p>
-    <div>
-    {% comment %} {% bootstrap_button "DETAIL" button_type="button" button_class="btn-primary" %} {% endcomment %}
-    </div>
-    <a href="{% url 'articles:detail' article.pk %}">[DETAIL]</a> 
+    <!-- 모듈화 시켜둥 article 템플릿 가져오기 -->
+    {% include 'articles/_article.html' %}
  
-  <form action="{% url 'articles:delete' article.pk %}" method="POST">
+  {% comment %} <form action="{% url 'articles:delete' article.pk %}" method="POST">
   {% csrf_token %}
      <div>
     {% buttons submit='글삭제' %}
     {% endbuttons %}
     </div>
    <hr> 
-  </form>
-
+  </form> {% endcomment %}
   {% endfor %}
+  <div>
 {% endblock body %}

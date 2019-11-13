@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'articles',
     'accounts',
-    'django_extensions', # django-
+    'django_extensions',
     'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',

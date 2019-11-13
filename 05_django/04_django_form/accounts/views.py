@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from IPython import embed
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
@@ -96,3 +97,10 @@ def change_password(request):
     context = {'form':form}
     # return render(request,'accounts/change_password.html', context)
     return render(request,'accounts/auth_form.html', context)
+
+
+# Profile
+def profile(request, username):
+    person = get_object_or_404(get_user_model(), username=username)
+    context = {'person':person}
+    return render(request,'acocunts/profile.html',context)
