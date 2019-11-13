@@ -22,8 +22,8 @@ INDEX
 - [191106 | 이미지 리사이징, Django Form, 사전작업해보기](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191106_Django_image%20resizing%2C%20Django%20Form%2C%20%EC%82%AC%EC%A0%84%EC%9E%91%EC%97%85%ED%95%B4%EB%B3%B4%EA%B8%B0.md)
 - [191107 | Django_Form 마무리](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191107_Django_Form%20%EB%A7%88%EB%AC%B4%EB%A6%AC.md)
 
-- [191111 | Django_Form_Authentication(인증)]([https://github.com/YeongSeonKim/TIL/blob/master/05_django/191111_Django_Form_Authentication(%EC%9D%B8%EC%A6%9D).md](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191111_Django_Form_Authentication(인증).md)
-- [191112 | Django_Model Relation]([https://github.com/YeongSeonKim/TIL/blob/master/05_django/191112_Django_Model%20Relation.md](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191112_Django_Model Relation.md))
+- [191111 | Django_Form_Authentication(인증)](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191111_Django_Form_Authentication(%EC%9D%B8%EC%A6%9D).md)
+- [191112 | Django_Model Relation](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191112_Django_Model%20Relation.md)
 - [191112 | Django_User-Article,Comment](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191112_Django_User-Article%2CComment.md)
-- [191113 | Django_Like, Profile, Follow]([https://github.com/YeongSeonKim/TIL/blob/master/05_django/191113_Django_Like%2C%20Profile%2C%20Follow.md](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191113_Django_Like%2C Profile%2C Follow.md))
+- [191113 | Django_Like, Profile, Follow](https://github.com/YeongSeonKim/TIL/blob/master/05_django/191113_Django_Like%2C%20Profile%2C%20Follow.md)
 
