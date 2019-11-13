@@ -163,7 +163,7 @@ Out[7]: 'Lee'
      
      In [11]: print(article1.comment_set.all()[1:4].query)
    SELECT "manytoone_comment"."id", "manytoone_comment"."content", "manytoone_comment"."article_id", "manytoone_comment"."user_id" FROM "manytoone_comment" WHERE "manytoone_comment"."article_id" = 1  LIMIT 3 OFFSET 1
-     ```
+   ```
   
   8. 1번 글의 첫번째, 두번째 댓글 가져오기
   
@@ -176,7 +176,7 @@ Out[7]: 'Lee'
   
      ```powershell
      In [13]: article1.comment_set.all()[1].user.article_set.all()[0].user.name
-   Out[13]: 'Lee'
+      Out[13]: 'Lee'
      ```
   
   10. 1번 댓글의 user 정보만 가져오면?
@@ -192,8 +192,9 @@ Out[7]: 'Lee'
       In [15]: user2.comment_set.order_by('-pk')
       Out[15]: <QuerySet [<Comment: !2글2댓글>, <Comment: !1글5댓글>, <Comment: 1글4댓글>, <Comment: 1글2댓글>]>
       ```
+
     ```
-  
+      
     ```
 12. 제목이 '1글'이라는 게시글을 전부 가져오면?
   
