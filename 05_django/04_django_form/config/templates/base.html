@@ -1,5 +1,4 @@
 {% load bootstrap4 %}
-{% load gravatar %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,30 +9,13 @@
   <title>04_django_form</title>
   <!-- bootstrap4 css 추가 -->
     {% bootstrap_css %}
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/930d9b7584.js" crossorigin="anonymous"></script>
 </head>
 <body>  
   <br>
+  {% include 'articles/_nav.html' %}
   <div class="container">
-  <!-- 로그인했을 경우 -->
-  {% if user.is_authenticated %}
-    <h2>
-      <img class="rounded-circle" src="http://s.gravatar.com/avatar/{{ user.email|makemd5 }}?s=80&d=mp" alt="">
-      어서오세요. {{ user.username }}
-    </h2>
-    <a href="{% url 'accounts:logout' %}" class="btn btn-warning text-light">로그아웃</a>
-    <a href="{% url 'accounts:update' %}" class="btn btn-success">정보수정</a>
-    <a href="{% url 'accounts:change_password' %}" class="btn btn-info">암호변경</a>
-    <form action="{% url 'accounts:delete' %}" method="POST" style="display:inline;">
-    {% csrf_token %}
-    <input type="submit" value="회원탈퇴" class="btn btn-danger">
-    </form>
-  <!-- 비회원인 경우 -->
-  {% else %}
-  <h3>로그인을 하셔야 서비스 이용이 가능합니다.</h3>
-    <a href="{% url 'accounts:login' %}">로그인</a>
-    <a href="{% url 'accounts:signup' %}">회원가입</a>
-  {% endif %}
-  <hr>
     {% block body %}
     {% endblock body %}
   </div>
