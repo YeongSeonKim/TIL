@@ -99,7 +99,7 @@ def change_password(request):
     return render(request,'accounts/auth_form.html', context)
 
 
-# Profile
+# Profile 
 def profile(request, username):
     person = get_object_or_404(get_user_model(), username=username)
     context = {'person':person}
