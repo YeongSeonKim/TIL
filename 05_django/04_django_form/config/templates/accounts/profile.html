@@ -10,7 +10,7 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">
-          글제목 : {{ article.title }}
+          글 제목 : {{ article.title }}
         </h5>
       </div>
     </div>
@@ -24,7 +24,7 @@
            <div class="card">
              <div class="card-body">
                <h5 class="card-title">
-                  {{ comment.content }}
+                  댓글 내용 : {{ comment.content }}
                </h5>
                 <p class="card-text">
                   작성시각 : {{ comment.created_at|date:"SHORT_DATETIME_FORMAT" }}

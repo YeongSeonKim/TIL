@@ -161,31 +161,21 @@ Out[7]: 'Lee'
       Out[10]: <QuerySet [<Comment: 1글2댓글>, <Comment: 1글3댓글>, <Comment: 1글4댓글>]>
      
      In [11]: print(article1.comment_set.all()[1:4].query)
-<<<<<<< HEAD
-   SELECT "manytoone_comment"."id", "manytoone_comment"."content", "manytoone_comment"."article_id", "manytoone_comment"."user_id" FROM "manytoone_comment" WHERE "manytoone_comment"."article_id" = 1  LIMIT 3 OFFSET 1
-   ```
-  
-=======
-      SELECT "manytoone_comment"."id", "manytoone_comment"."content", "manytoone_comment"."article_id", "manytoone_comment"."user_id" FROM "manytoone_comment" WHERE "manytoone_comment"."article_id" = 1  LIMIT 3 OFFSET 1
      ```
->>>>>>> b42fde029fc730d6f12297af8887f0b9d2985f94
+
   8. 1번 글의 첫번째, 두번째 댓글 가져오기
-     ```powershell
-     In [12]: article1.comment_set.all()[0:2]
-     Out[12]: <QuerySet [<Comment: 1글1댓글>, <Comment: 1글2댓글>]>
-     ```
   
+     ```powershell
+  In [12]: article1.comment_set.all()[0:2]
+  Out[12]: <QuerySet [<Comment: 1글1댓글>, <Comment: 1글2댓글
+     ```
+
   9. 1번 글의 두번째 댓글을 작성한 사람의 첫번째 게시물의 작성자의 이름은?
   
      ```powershell
      In [13]: article1.comment_set.all()[1].user.article_set.all()[0].user.name
-<<<<<<< HEAD
-      Out[13]: 'Lee'
-=======
-     Out[13]: 'Lee'
->>>>>>> b42fde029fc730d6f12297af8887f0b9d2985f94
+Out[13]: 'Lee'
      ```
-  
   10. 1번 댓글의 user 정보만 가져오면?
   
       ```powershell
@@ -200,15 +190,7 @@ Out[7]: 'Lee'
       Out[15]: <QuerySet [<Comment: !2글2댓글>, <Comment: !1글5댓글>, <Comment: 1글4댓글>, <Comment: 1글2댓글>]>
       ```
 
-<<<<<<< HEAD
-    ```
-      
-    ```
-12. 제목이 '1글'이라는 게시글을 전부 가져오면?
-=======
   12. 제목이 '1글'이라는 게시글을 전부 가져오면?
->>>>>>> b42fde029fc730d6f12297af8887f0b9d2985f94
-  
       ```powershell
       In [16]: Article.objects.filter(title='1글')
       Out[16]: <QuerySet [<Article: 1글>]>

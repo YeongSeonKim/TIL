@@ -103,4 +103,4 @@ def change_password(request):
 def profile(request, username):
     person = get_object_or_404(get_user_model(), username=username)
     context = {'person':person}
-    return render(request,'acocunts/profile.html',context)
+    return render(request,'accounts/profile.html', context)
