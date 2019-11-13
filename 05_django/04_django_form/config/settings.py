@@ -126,3 +126,6 @@ STATIC_URL = '/static/'
 # login_required 요청 경로 커스터마이징
 # - 기본 값은'/accounts/login/'
 # LOGIN_URL = '/members/login/'
+
+# 기본값 : auth.User
+AUTH_USER_MODEL = 'accounts.User'

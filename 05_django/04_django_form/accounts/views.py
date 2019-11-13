@@ -83,7 +83,7 @@ def update(request):
     return render(request,'accounts/auth_form.html', context)
 
 
-# 비밀번호 변경
+# 비밀번호 변경 
 @login_required
 def change_password(request):
     if request.method == 'POST':

@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>{{ person.username }}님의 Profile</h1>
+<h1 class="text-center mt-3">{{ person.username }}님의 Profile</h1>
 <hr>
-<h3>{{ person.username }}님이 작성한 게시글</h3>
+<h3 class="text-center mb-3">{{ person.username }}님이 작성한 게시글</h3>
 <div class="row">
 {% for article in person.article_set.all %}
   <div class="col-12 col-md-6 mb-2">
@@ -17,7 +17,7 @@
   </div>
   {% endfor %}
 </div>
-      <h3>{{ person.username }}님이 작성한 댓글</h3>
+      <h3 class="text-center mb-3">{{ person.username }}님이 작성한 댓글</h3>
       <div class="row">
         {% for comment in person.comment_set.all %}
           <div class="col-12 col-md-6 mb-3">

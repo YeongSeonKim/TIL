@@ -10,6 +10,9 @@
         <h5 class="card-title">
           글 제목 : {{ article.title }}
         </h5>
+        <h5 class="card-title">
+          작성자 : {{ article.user }}
+        </h5>
         <p class="card-text">
         <a href="{% url 'articles:like' article.pk %}">
             <!-- 사용자가 좋아요 안누른 상태면 -> 빈하트 -->
