@@ -22,7 +22,7 @@ class Hashtag(models.Model):
 class Article(models.Model):
     ...
      # 해시태그가 없어도 작성될수 있게 blank=True
-    Hashtags = models.ManyToManyField(Hashtag, blank=True)
+    hashtags = models.ManyToManyField(Hashtag, blank=True)
 
 ```
 
