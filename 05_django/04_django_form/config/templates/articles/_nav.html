@@ -12,6 +12,9 @@
     <ul class="navbar-nav">
       {% if user.is_authenticated %}
         <li class="nav-item active">
+          <a class="nav-link" href="{% url 'articles:index' %}">홈으로가기</a>
+        </li>
+        <li class="nav-item active">
           <a class="nav-link" href="{% url 'articles:list' %}">좋은글보기</a>
         </li>
         <li class="nav-item active">

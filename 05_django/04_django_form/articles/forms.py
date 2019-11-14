@@ -59,8 +59,8 @@ class ArticleForm(forms.ModelForm):
     # ex) 사진 한장 (촬영장비이름, 촬영환경 등)
     class Meta:
         model = Article
-        # fields = ('title', 'content',) # 지정해서 가져오기
-        fields = '__all__' # 전체가져오기
+        fields = ('title', 'content',) # 지정해서 가져오기
+        #fields = '__all__' # 전체가져오기
 
 
 class CommentForm(forms.ModelForm):

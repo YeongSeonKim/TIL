@@ -33,10 +33,12 @@
   </div>
 </form>
 <hr>
-{% if request.resolver_match.url_name == 'create'%}
-  <a href="{% url 'articles:index' %}">[BACK]</a>
-{% else %}
-  <a href="{% url 'articles:detail' article.pk %}">[BACK]</a>
-{% endif %}
+<div class="text-center">
+  {% if request.resolver_match.url_name == 'create' %}
+    <a href="{% url 'articles:index' %}">[BACK]</a>
+  {% else %}
+    <a href="{% url 'articles:detail' article.pk %}">[BACK]</a>
+  {% endif %}
+</div>
 
 {% endblock %}

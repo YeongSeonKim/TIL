@@ -15,5 +15,6 @@ urlpatterns = [
     path('<int:article_pk>/follow/<int:user_pk>/', views.follow, name='follow'),
     path('list/', views.list, name='list'),
     path('explore/', views.explore, name='explore'),
+    path('<int:hash_pk>/hashtag/', views.hashtag, name='hashtag'),
 
 ]

@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
+{% load make_link %}
 
 {% block body %}
 {% include 'articles/_follow.html' %}
 
- 
   <h1 class="text-center">DETAIL</h1>
   <hr>
 
 <p>글 번호 : {{ article.pk }}</p>
 <p>글 제목 : {{ article.title }}</p>
-<p>글 내용 : {{ article.content }}</p>
+<!-- safe : 사용을 안하게 되면 html태그가 화면상에 보이게 된다. html escape -->
 <p>생성 시각 : {{ article.created_at }}</p>
+<p>글 내용 : {{ article|hashtag_link|safe }}</p> 
 <p>수정 시각 : {{ article.updated_at }}</p>
 <hr>
 <a href="{% url 'articles:index' %}">[BACK]</a>

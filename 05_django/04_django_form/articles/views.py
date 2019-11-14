@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article
 from .models import Comment
+from .models import Hashtag
 from .forms import ArticleForm
 from .forms import CommentForm
 
@@ -40,6 +41,13 @@ def create(request):
             article = form.save(commit=False)
             article.user = request.user
             article.save()
+            # hashtag
+            # 게시글 내용을 split해서 리스트로 만듦
+            for word in article.content.split():
+                # word가 '#'으로 시작할 경우 해시태그 등록
+                if word.startswith('#'):
+                    hashtag, created = Hashtag.objects.get_or_create(content=word)
+                    article.hashtags.add(hashtag)
 
         return redirect('articles:detail', article.pk)
     else:
@@ -100,6 +108,12 @@ def update(request, article_pk):
                 # article.content = form.cleaned_data.get('content')
                 # article.save()
                 article = form.save()
+                # hashtag
+                article.hashtags.clear()
+                for word in article.content.split():
+                    if word.startswith('#'):
+                        hashtag, created = Hashtag.objects.get_or_create(content=word)
+                        article.hashtags.add(hashtag)
 
                 return redirect('articles:detail', article.pk)
         else:
@@ -118,6 +132,8 @@ def update(request, article_pk):
         'article':article,
         }
     return render(request, 'articles/form.html', context)
+
+
 
 @require_POST
 def comments_create(request, article_pk):
@@ -224,3 +240,15 @@ def explore(request):
         'comment_form':comment_form,
     }    
     return render(request, 'articles/article_list.html', context)
+
+# Hastag 글 모아보기
+def hashtag(request, hash_pk):
+    # 해시태그 가져오기
+    hashtag = get_object_or_404(Hashtag, pk=hash_pk)
+    # 해당 해시태그를 참조하는 게시글들 가져오기
+    articles = hashtag.article_set.order_by('-pk')
+    context = {
+        'hashtag':hashtag,
+        'articles':articles,
+    }
+    return render(request, 'articles/hashtag.html', context)
