@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+{% if request.resolver_match.url_name == 'create'%}
+  <br>
+  <h1 class="text-center">CREATE</h1>
+  <hr>
+{% else %}
+  <br>
+  <h1 class="text-center">UPDATE</h1>
+  <hr>
+{% endif %}
+<!--
+  action 값이 공백일 경우, 현재 위치하고 있는 주소로 요청을 보낸다. 폼을 던져주는 경로,
+  DB에 저장하는 경로가 동일하다면 공백으로 해도 정상적으로 동작한다.
+-->
+<form action="" method="POST">
+<!-- POST 요청할 때 반드시 설정 -->
+  {% csrf_token %} 
+  {% bootstrap_form form layout='inline' %}
+
+<!-- 제출버튼 -->
+  <div class="text-center">
+    {% buttons submit='제출' reset="초기화" %}
+    {% endbuttons %}
+  </div>
+</form>
+<hr>
+<div class="text-center">
+  {% if request.resolver_match.url_name == 'create' %}
+    <a href="{% url 'movies:index' %}" class="btn btn-primary">BACK</a>
+  {% else %}
+    <a href="{% url 'movies:detail' movie.pk %}" class="btn btn-primary">[BACK]</a>
+  {% endif %}
+</div>
+
+{% endblock %}

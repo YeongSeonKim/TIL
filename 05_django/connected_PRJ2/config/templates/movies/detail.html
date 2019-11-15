@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<br>
+<h1 class="text-center">영화 정보 조회</h1>
+<hr>
+<form>
+ <div class="form-group row">
+  <label for = "title" class="col-sm-2 col-form-label">영화명</label>
+  <div class="col-sm-10">
+    {{ movie.title }}
+  </div>
+</div>
+<div class="form-group row">
+  <label for = "description" class="col-sm-2 col-form-label">영화 소개</label>
+  <div class="col-sm-10">
+    {{ movie.description }}
+  </div>
+</div>
+<div class="form-group row">
+  <label for = "poster" class="col-sm-2 col-form-label">포스터 이미지 URL</label>
+  <div class="col-sm-10">
+    <img src="{{ movie.poster }}" style="width:200px;">
+  </div>
+</div>
+</form>
+
+<hr>
+<a href="{% url 'movies:index' %}" class="btn btn-primary">BACK</a>
+<a href="{% url 'movies:delete' movie.pk %}" class="btn btn-danger">DELETE</a>
+<a href="{% url 'movies:update' movie.pk %}" class="btn btn-primary">EDIT</a>
+<hr>
+<!--  댓글 작성 Form -->
+{% comment %} <form action="{% url 'movies:comments_create' movie.pk %}" method="POST">
+  {% csrf_token %}
+  <input type="text" name="content" style="width:500px; height:100px;">
+  <input type="submit" value="댓글작성">
+</form>
+<hr>
+<br>
+<h5>[ 댓글 목록 ]</h5><br>
+<p>{{ comments|length }}개의 댓글이 있습니다.</p>
+{{ comments.count }} {% endcomment %}
+
+{% comment %} {% for comment in comments %}
+<p>댓글 내용 : {{ comment.content }}</p>
+<p>작성 날짜 : {{ comment.created_at }} </p>
+<form action="{% url 'movies:comments_delete' movie.pk comment.pk %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="댓글삭제">
+</form>
+<hr>
+{% empty %}
+  <p>댓글이 없는데요오ㅜㅜㅜ</p>
+{% endfor %} {% endcomment %} 
+{% endblock %}

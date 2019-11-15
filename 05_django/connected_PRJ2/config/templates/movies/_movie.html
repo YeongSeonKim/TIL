@@ -1,0 +1,12 @@
+{% for movie in movies %}
+<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+  <div class="card" style="width:11rem; word-wrap:break-word;">
+    <img src="{{ movie.poster }}" class="card-img-top" alt="영화이미지">
+    <div class="card-body">
+      <h4 class="card-title">{{ movie.title }}</h4>
+      <p class="card-text">평점 : {{ rating.score }}</p>
+      <a href="{% url 'movies:detail' movie.pk %}" class="btn btn-outline-primary">상세보기</a>
+    </div>
+  </div>
+</div>
+{% endfor %}
