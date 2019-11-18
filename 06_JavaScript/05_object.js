@@ -17,4 +17,5 @@ me.appleProducts        // {iphone: "8", watch: "series5", macbook: "pro2019"}
 me.appleProducts.iphone // "8"
 */
 
+console.log(me.appleProducts)
 console.log(me.appleProducts.iphone)

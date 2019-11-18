@@ -58,4 +58,4 @@ console.log(typeof returnObject())
 // 6. 기본 인자 부여하기 (Default Args)
 // 인자 개수와 상관없이 반드시 괄호를 붙인다.
 const sayHello = (name=`영선`) => `hi! ${name}`
-
+console.log(sayHello())

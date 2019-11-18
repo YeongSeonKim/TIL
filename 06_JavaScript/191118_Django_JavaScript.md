@@ -270,7 +270,7 @@ console.log(typeof sub)
 
 
 
-### 5. 화살표 함수(Arrow function)
+## 5. 화살표 함수(Arrow function)
 
 - ES6 이후
 - **function과 중괄호 숫자를 줄이려고 고안된 문법**
@@ -295,9 +295,7 @@ const iot1 = name => { return `hello! ${name}` }
 const iot1 = name => `hello! ${name}`
 ```
 
-
-
-실습
+##### **[실습]** - 3단계에 걸쳐 화살표 함수로 바꿔보기
 
 ```js
 // 03_function.js
@@ -312,18 +310,34 @@ square = (num) => { return num ** 2 }
 square = num => { return num ** 2 }
 // 3. {}, return 생략 (바디에 표현식 1개)
 square = num => num ** 2
-// console.log(square(2))
+console.log(square(2))
 ```
 
 ![1574053560476](assets/1574053560476.png)
 
+```js
+// 4. 인자가 없다면...? () 혹은 _ 로 표시 가능!
+let noArgs = () => `No args!!!!`
+noArgs = _ => `No args...!!!!`
 
+// 5-1. object를 return
+let returnObject = () => { return {key:`value`} }
+console.log(returnObject())
+console.log(typeof returnObject())
 
+// 5-2. return을 적지 않으려면 괄호 붙이기
+returnObject = () => ({key:`value`})
+console.log(returnObject())
+console.log(typeof returnObject())
 
+// 6. 기본 인자 부여하기 (Default Args)
+// 인자 개수와 상관없이 반드시 괄호를 붙인다.
+const sayHello = (name=`영선`) => `hi! ${name}`
+```
 
+![1574059972052](assets/1574059972052.png)
 
-
-## 5. 익명 / 1회용 함수 (Anonymous function)
+## 6. 익명 / 1회용 함수 (Anonymous function)
 
 > JavaScript에서는 1회용으로 사용하는 함수는 이름을 짓지 않을 수 있다.
 >
@@ -350,7 +364,7 @@ console.log((function (num) { return num ** 3})(2))
 console.log((num => num ** 0.5)(4))
 ```
 
-## 6. 배열(Arr)
+## 7. 배열(Array)
 
 ```js
 // 04_array.js
@@ -407,14 +421,16 @@ numbers.join('-')   // "a-1-2-3-4-5-a-b"
 numbers.join('')    // "a12345ab"
 ```
 
-## 7. 객체(Object)
+![1574060058781](assets/1574060058781.png)
+
+## 8. 객체(Object)
 
 ```js
 // 05_object.js
 
 const me = {
     name : '영선',   // key가 한 단어일 때
-    'phone number' : '01051807243',     // key가 여러 단어일 때
+    'phone number' : '01000000000',     // key가 여러 단어일 때
     appleProducts: {
         iphone:'8',
         watch:'series5',
@@ -422,11 +438,204 @@ const me = {
     }
 }
 
+/*
 me.name         // "영선"
 me['name']      // "영선"
 // key가 여러단어 일때 []로 접근!
-me['phone number']      // "01051807243"
+me['phone number']      // "01000000000"
 me.appleProducts        // {iphone: "8", watch: "series5", macbook: "pro2019"}
 me.appleProducts.iphone // "8"
+*/
+
+console.log(me.appleProducts)
+console.log(me.appleProducts.iphone)
 ```
 
+![1574060124315](assets/1574060124315.png)
+
+```js
+// 06_object2.js
+
+// ES5
+var books = ['자바스크립트 입문', '장고 웹 프로그래밍']
+var comics = {
+  'DC' : ['Aquaman', 'Joker'],
+  'Marvel' : ['Avengers', 'Spider Man']
+}
+
+var magazines = null
+
+var bookShop = {
+  books:books,
+  comics:comics,
+  magazines:magazines
+}
+
+console.log(bookShop)
+console.log(typeof bookShop)
+console.log(bookShop.books[0])
+```
+
+![1574060282246](assets/1574060282246.png)
+
+```js
+// 06_object2.js
+
+// ES6 이후
+// 객체의 Key와 Value가 똑같으면 -> 마치 배열처럼 한번만 작성 가능
+let books = ['자바스크립트 입문', '장고 웹 프로그래밍']
+let comics = {
+  'DC' : ['Aquaman', 'Joker'],
+  'Marvel' : ['Avengers', 'Spider Man']
+}
+
+let magazines = null
+const bookShop = {
+  books,
+  comics,
+  magazines
+}
+
+console.log(bookShop)
+console.log(typeof bookShop)    //object
+console.log(bookShop.books[0])
+```
+
+![1574060353713](assets/1574060353713.png)
+
+## 9. JSON
+
+> JavaScript Object Notation - **JavaScript 객체 표기법**
+
+- **웹에서 데이터를 주고 받을 때 형식**으로 대표적으로 JSON, XML, YAML 등이 있다. **주로 JSON을 사용**한다.
+- Key-Value 형태의 자료구조를 JavaScript Object 와 유사한 모습으로 표현하는 표기법
+- 하지만 JSON은 모습만 비슷할 뿐이고, 실제로 Object 처럼 사용하려면다르 언어드로가 마찬가지로 **Parsing(구문 분석)하는 작업이 필요**하다.
+
+```js
+// 07_json.js
+
+// Object -> String
+const jsonData = JSON.stringify({
+    도현 : '합기도',
+    혁진 : '감자',
+})
+console.log(jsonData)           // {"도현":"합기도","혁진":"감자"}
+console.log(typeof jsonData)    // string
+
+// String -> Object
+const parseData = JSON.parse(jsonData)
+console.log(parseData)          // { '도현': '합기도', '혁진': '감자' }
+console.log(typeof parseData)   // object
+
+
+/*
+    [Object vs JSON 간단정리]
+    - Object : JavaScript의 Key-Vaule 페어의 자료구조
+    - JSON : 데이터를 표현하기 위하 단순 문자열(string)
+*/
+```
+
+![1574060454229](assets/1574060454229.png)
+
+## 10. Array Helper Method
+
+> Helper 란 자주 사요하는 로직을 재활용 할 수 있게 만든 일종의 Library ES6부터 본격적으로 사용되기 시작했다.
+
+- 더욱더어ㅓㅓ 상세한 사용법 => [MDN 문서](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)  참고
+
+### 8.1 `forEach`
+
+- `arr.forEach(callback(element, index, array))`
+- 주어진 callback을 배열에 있는 각 요소에 대해 한번씩 실행
+
+```js
+// 08_forEach.js
+
+// ES5 for loop
+var iot1 = ['도현','혁진','은애']
+for (var i = 0; i < iot1.length; i++) {
+    console.log(iot1[i])
+}
+```
+
+![1574060535767](assets/1574060535767.png)
+
+```js
+// 08_forEach.js
+
+// ES6+
+const IOT1 = ['수연', '승찬', '한석', '경희', '영선']
+IOT1.forEach(function(student) {
+    console.log(student)
+})
+```
+
+![1574060577930](assets/1574060577930.png)
+
+```js
+// 08_forEach.js
+
+// 한줄로 리팩토링 가능!
+IOT1.forEach( student => console.log(student) )
+
+const result = IOT1.forEach( 
+    student => console.log(student) 
+)
+console.log(result) // undefined
+```
+
+![1574060685040](assets/1574060685040.png)
+
+##### **[실습]** - for 를 forEach로 바꾸기
+
+```js
+// 08_forEach.js
+
+// [실습] for 를 forEach로 바꾸기!
+function handleStudents() {
+    const students = [
+        { id:1, name:'오은애', status:'응애?'},
+        { id:15, name:'서혁진', status:'기염듕이...'},
+        { id:28, name:'김영선', status:'너무쉽네..JS'},
+    ]
+    // for
+    for (let i = 0; i < students.length; i++) {
+        console.log(students[i])
+        console.log(students[i].name)
+        console.log(students[i].status)
+    }
+    // forEach
+    students.forEach(function(student) {
+        console.log(student)
+        console.log(student.name)
+        console.log(student.status)
+    })
+    console.log()
+}
+handleStudents()
+```
+
+![1574060864666](assets/1574060864666.png)
+
+##### **[실습]** -  images 배열 안에 있는 정보를 곱해 넓이를 구하여 areas 배열에 저장하기
+
+```js
+// 08_forEach.js
+
+// [실습] images 배열 안에 있는 정보를 곱해 넓이를 구하여 areas 배열에 저장하기
+const images = [
+    { height : 30, width : 55 },
+    { height : 50, width : 178 },
+    { height : 81, width : 35 },
+]
+const areas = []
+
+// 정답코드 (forEach 활용)
+images.forEach(function(image) {
+    areas.push(image.height * image.width)
+})
+
+console.log(areas)
+```
+
+![1574060964962](assets/1574060964962.png)
