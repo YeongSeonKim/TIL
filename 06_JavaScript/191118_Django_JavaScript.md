@@ -1,3 +1,5 @@
+## 2019 - 11 - 18
+
 # JavaScript Syntax basics
 
 ## 0. 사전준비
@@ -639,3 +641,237 @@ console.log(areas)
 ```
 
 ![1574060964962](assets/1574060964962.png)
+
+## 2019 - 11 - 19
+
+### 8.2 `map`
+
+- `arr.map(callback(element))`
+- 배열 내의 모든 요소에 대하여 주어진 콜백 함수를 호출한 결과를 모아 새로운 배열 return!
+- `map`, `filter` 둘 다 사본을 return 하는 거고, 원본은 바뀌지 않는다. 만약 return을 안적으면 undefined가 배열에 담김!
+
+````js
+// 09_map.js
+
+// 숫자가 담긴 배열의 요소에 각각 2를 곱하려 새로운 배열 만들기
+
+// ES5
+var numbers = [1, 2, 3]
+var doubleNumbers = []
+
+for( var i = 0; i <numbers.length; i++) {
+    doubleNumbers.push(numbers[i] * 2)
+}
+console.log(doubleNumbers)
+console.log(numbers)        // 원본 유지
+
+// ES6+
+const NUMBERS = [1, 2, 3]
+// const DOUBLE_NUMBER = []
+const DOUBLE_NUMBER = NUMBERS.map(function(number) {
+    // return이 없으면 undefined (까먹지말자!!)
+    return number * 2
+}) 
+console.log(DOUBLE_NUMBER)
+````
+
+![1574124602075](assets/1574124602075.png)
+
+```js
+// 화살표 함수 사용하여 한 줄로 줄이기
+const DOUBLE_NUMBER = NUMBERS.map( number => number * 2 ) 
+console.log(DOUBLE_NUMBER)
+console.log(NUMBERS)        // 원본 변화 없음
+```
+
+![1574124810042](assets/1574124810042.png)
+
+**[문제풀어보기]**
+
+```js
+// map 헬퍼를 사용해서 images 배열 안의 객체들의 height들만 저장되어 있는 heights 배열을 만들어 보자.
+const images = [
+    { height : '34px', width : '59px'},
+    { height : '11px', width : '135px'},
+    { height : '681px', width : '592px'},
+]
+
+const heights = images.map(function(image) {
+    return image.height
+})
+
+console.log(heights)
+console.log(images)
+```
+
+![1574124872146](assets/1574124872146.png)
+
+**[문제풀어보기]**
+
+```js
+// map 헬퍼를 사용해서 "distance/time => 속도"를 저장하는 새로운 배열 speeds를 만들어 보자.
+const trips = [
+    { distance : 34 , time : 10 },
+    { distance : 90 , time : 20 },
+    { distance : 111 , time : 28 },
+]
+                        // callback 함수
+const speeds = trips.map(function(trip) {
+    return trip.distance / trip.time
+})
+
+console.log(speeds)
+```
+
+![1574124903714](assets/1574124903714.png)
+
+### 8.3 `filter`
+
+- `arr.filter(callback(element))`
+- 주어진 콜백 함수의 테스트를 토와하는 모든 요소를 모아서 새로운 배열로 반환한다. (콜백 함수 조건을 적어서 원하는 요소들만 filtering 한다.)
+
+```js
+// 10_filter.js
+
+// for loop 활용
+var students = [
+    { name : '서혁진', type='male' },
+    { name : '공선아', type='female' },
+    { name : '남찬우', type='male' },
+    { name : '이도현', type='female' },
+]
+
+var strongStudents = []
+// students 라는 배열의 객체들 중 type이 female인 요소들만 뽑기!
+// students 원본 자체를 바꾸고 싶은게 아니라, 원하는 조건에 맞는
+// 데이터들만 골라서 새로운 배열 만들기.
+// ES5
+for (var i = 0; i < students.length; i++) {
+    if ( students[i].type === 'female' ) {
+        strongStudents.push(students[i])
+    }
+}
+
+console.log(students)               // 원본 유지
+console.log(strongStudents)         // 새로운 배열
+console.log(students[1].name)       // 객체 내 속성 접근하기
+```
+
+![1574127574461](assets/1574127574461.png)
+
+```js
+// filter Helper 활용
+const STUDENTS = [
+    { name : '서혁진', type : 'male' },
+    { name : '공선아', type : 'female' },
+    { name : '남찬우', type : 'male' },
+    { name : '이도현', type : 'female' },
+]
+
+// const STRONG_STUDENTS = STUDENT.filter(function(student) {
+//     return student.type === 'female'
+// })
+
+// 한 줄로 바꾸기
+const STRONG_STUDENTS = STUDENTS.filter( student => student.type === 'female')
+
+console.log(STRONG_STUDENTS)        // 새로운 배열
+console.log(STUDENTS)               // 원본 유지
+```
+
+![1574127736206](assets/1574127736206.png)
+
+**[문제풀어보기]**
+
+```js
+// filter Helpler를 사용해서 numbers 배열 중 50보다 큰 값만 필터링해서 새로운 배열에 저장하기
+
+const numbers = [15, 35, 13, 36, 69, 3, 61, 55, 99, 5]
+const newNumbers = numbers.filter(function(number) {
+    return number > 50
+})
+
+// const newNumbers = numbers.filter( number => number > 50 )
+
+console.log(numbers)
+console.log(newNumbers)
+```
+
+![1574127823956](assets/1574127823956.png)
+
+### 8.4 `reduce`
+
+- `arr.reduce(callback(acc, element, index))`
+  - 첫 번째 매개변수 : 누적 값 (전 단계의 결과물) 
+  - 두 번째 매개변수 :  현재 배열 요소
+  - 세 번째 매개변수 :  배열 순서(인덱스 번호)
+- 배열의 각 요소에 대해 주어진 콜백 함수를 실행하고 하나의 결과 값을 반환한다. **배열 내의 숫자 총합, 평균 계산 등 배열의 값을 하나로 줄이는 동작**을 한다.
+- map은 배열의 각 요소를 변형, **reduce는 배열 자체를 변형**한다.
+- map, filter 등 여러 메소드들의 동작을 대부분 대체 가능.
+
+```js
+// 11_reduce.js
+
+const tests = [90, 85, 77, 13, 58]
+
+// const sum = tests.reduce(function(total, score) {
+//     return total += score
+// })
+
+const sum = tests.reduce( (total, score) => total += score )
+
+console.log(sum)
+```
+
+![1574127213971](assets/1574127213971.png)
+
+### 8.5 `find`
+
+- `arr.find(callback(acc, element, index))`
+- 주어진 판별 함수를 만족하는 첫번째 요소의 값을 반환.
+  - 값이 없으면 `undefined`
+- 조건에 맞는 인덱스가 아니라 요소 자체를 원할 때 사용.
+
+```js
+// 12_find.js
+
+// for loop
+var students = [
+    { name : '서혁진' , age : 26 },
+    { name : '오은애' , age : 26 },
+    { name : '공선아' , age : 25 },
+    { name : '이도현' , age : 26 },
+    { name : '최주현' , age : 27 },
+]
+
+// ES5
+for ( var i = 0; i < students.length; i++ ) {
+    if ( students[i].age === 27 ){
+        student = students[i]
+        break       // 원하는 조건 도달하면 loop 탈출
+    }
+}
+
+console.log(student)
+
+
+// find Helpler
+const STUDENTS = [
+    { name : '서혁진' , age : 26 },
+    { name : '오은애' , age : 26 },
+    { name : '공선아' , age : 25 },
+    { name : '이도현' , age : 26 },
+    { name : '최주현' , age : 27 },
+]
+
+// const student = STUDENTS.find(function(student) {
+//     return students.age === 27
+// })
+
+// 화살표함수
+const student = STUDENTS.find( student => students.age === 27 )
+
+console.log(student)
+```
+
+![1574127442469](assets/1574127442469.png)
