@@ -281,3 +281,17 @@ https://getbootstrap.com/docs/4.3/components/list-group/#with-badges
 해당 제목이 포함된 게시글의 제목이 리스트로 보여지게 되며 오른쪽 끝에는 해당 게시글의  댓글의 갯수가 보여지게 된다.
 
 ![1574302556149](assets/1574302556149.png)
+
+- active - 버튼에 색상 넣기 `{% if num == articles.number %}active{% endif %}`추가해주기
+
+```django
+<!-- 페이지 버튼 -->
+{% for num in articles.paginator.page_range %}
+<li class="page-item {% if num == articles.number %}active{% endif %}">
+
+  <a class="page-link" href="{% url 'articles:index' %}?page={{ num }}">{{ num }}</a>
+</li>
+{% endfor %}
+```
+
+![1574322105929](assets/1574322105929.png)
